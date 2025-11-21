@@ -1,0 +1,31 @@
+
+import React from 'react';
+import { Navbar } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { Features } from './components/Features';
+import { DashboardShowcase } from './components/DashboardShowcase';
+import { AiAssistantDemo } from './components/AiAssistantDemo';
+import { Pricing } from './components/Pricing';
+import { About } from './components/About';
+import { Contact } from './components/Contact';
+import { Footer } from './components/Footer';
+
+function App() {
+  return (
+    <div className="min-h-screen bg-white font-sans text-slate-900">
+      <Navbar />
+      <main>
+        <Hero />
+        <Features />
+        <DashboardShowcase />
+        <AiAssistantDemo />
+        <Pricing />
+        <About />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;

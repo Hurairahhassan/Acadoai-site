@@ -1,0 +1,7 @@
+{
+  "name": "AcadoAI - Education ERP",
+  "description": "Next-generation Education ERP system powered by Gemini AI. Manage students, teachers, and administration with intelligent insights.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
