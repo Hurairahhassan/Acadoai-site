@@ -1,12 +1,27 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 import { Bot, Sparkles, BarChart3 } from "lucide-react";
 
 export const About: React.FC = () => {
   return (
-    <section id="ai" className="py-24 bg-white overflow-hidden">
+    <motion.section
+      id="ai"
+      className="py-24 bg-white overflow-hidden"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+          >
             <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">
               AI Features
             </h2>
@@ -19,7 +34,16 @@ export const About: React.FC = () => {
               role.
             </p>
 
-            <div className="mt-10 space-y-6">
+            <motion.div
+              className="mt-10 space-y-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
+              }}
+            >
               {[
                 {
                   icon: <Bot className="text-blue-500" />,
@@ -37,7 +61,12 @@ export const About: React.FC = () => {
                   desc: "Attendance anomalies, declining grades, and overdue fees are flagged automatically.",
                 },
               ].map((item, i) => (
-                <div key={i} className="flex gap-4">
+                <motion.div
+                  key={i}
+                  className="flex gap-4"
+                  variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                >
                   <div className="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center shrink-0">
                     {item.icon}
                   </div>
@@ -45,14 +74,33 @@ export const About: React.FC = () => {
                     <h4 className="font-bold text-slate-900">{item.title}</h4>
                     <p className="text-sm text-slate-500 mt-1">{item.desc}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="relative">
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-xl">
-              <div className="bg-blue-600 text-white p-5 rounded-xl mb-4 shadow-lg">
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
+          >
+            <motion.div
+              className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-xl"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
+              }}
+            >
+              <motion.div
+                className="bg-blue-600 text-white p-5 rounded-xl mb-4 shadow-lg"
+                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              >
                 <div className="text-xs uppercase tracking-[0.2em] text-blue-100 mb-2">
                   YOU
                 </div>
@@ -60,8 +108,12 @@ export const About: React.FC = () => {
                   How many students failed mathematics last semester and which
                   classes?
                 </p>
-              </div>
-              <div className="bg-emerald-50 border border-emerald-100 text-emerald-900 p-5 rounded-xl mb-4 ml-8 shadow-sm">
+              </motion.div>
+              <motion.div
+                className="bg-emerald-50 border border-emerald-100 text-emerald-900 p-5 rounded-xl mb-4 ml-8 shadow-sm"
+                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              >
                 <div className="text-xs uppercase tracking-[0.2em] text-emerald-500 mb-2">
                   ACADOAI
                 </div>
@@ -70,8 +122,12 @@ export const About: React.FC = () => {
                   had the highest drop. Want me to generate a remediation
                   report?
                 </p>
-              </div>
-              <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm">
+              </motion.div>
+              <motion.div
+                className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm"
+                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              >
                 <div className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-2">
                   YOU
                 </div>
@@ -79,8 +135,12 @@ export const About: React.FC = () => {
                   Generate a quiz on photosynthesis for Grade 7, medium
                   difficulty.
                 </p>
-              </div>
-              <div className="bg-emerald-50 border border-emerald-100 text-emerald-900 p-5 rounded-xl mt-4 ml-8 shadow-sm">
+              </motion.div>
+              <motion.div
+                className="bg-emerald-50 border border-emerald-100 text-emerald-900 p-5 rounded-xl mt-4 ml-8 shadow-sm"
+                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              >
                 <div className="text-xs uppercase tracking-[0.2em] text-emerald-500 mb-2">
                   ACADOAI
                 </div>
@@ -88,11 +148,11 @@ export const About: React.FC = () => {
                   Done. Created a 10-question mixed-format quiz aligned to
                   curriculum standards.
                 </p>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

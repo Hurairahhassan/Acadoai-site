@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle } from "lucide-react";
 
 export const Pricing: React.FC = () => {
@@ -56,9 +59,22 @@ export const Pricing: React.FC = () => {
   ];
 
   return (
-    <section id="pricing" className="py-24 bg-slate-50">
+    <motion.section
+      id="pricing"
+      className="py-24 bg-slate-50"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
           <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">
             Pricing
           </h2>
@@ -69,13 +85,26 @@ export const Pricing: React.FC = () => {
             Scale from a single campus to a nationwide network. Pay per
             institution, not per user.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+            },
+          }}
+        >
           {tiers.map((tier, index) => (
-            <div
+            <motion.div
               key={index}
               className={`relative flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden border ${tier.highlight ? "border-blue-500 ring-2 ring-blue-500 ring-opacity-50 scale-105 z-10" : "border-slate-200 hover:border-blue-300 transition-colors"}`}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               {tier.highlight && (
                 <div className="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
@@ -117,10 +146,10 @@ export const Pricing: React.FC = () => {
                   {tier.cta} <ArrowRight size={16} className="ml-2" />
                 </a>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };

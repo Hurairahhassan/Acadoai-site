@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 import { Building2, GraduationCap, Search } from "lucide-react";
 
 const portalCards = [
@@ -48,9 +51,22 @@ const portalCards = [
 
 export const DashboardShowcase: React.FC = () => {
   return (
-    <section id="portals" className="py-24 bg-slate-50">
+    <motion.section
+      id="portals"
+      className="py-24 bg-slate-50"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
+        <motion.div
+          className="text-center mb-16 max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
           <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">
             Role-Based Access
           </h2>
@@ -61,13 +77,26 @@ export const DashboardShowcase: React.FC = () => {
             Distinct experiences for every stakeholder so each role sees exactly
             what it needs.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+            },
+          }}
+        >
           {portalCards.map((card) => (
-            <div
+            <motion.div
               key={card.label}
               className={`rounded-2xl border p-8 shadow-sm ${card.accent} bg-white`}
+              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
             >
               <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm border border-slate-100 mb-5">
                 {card.icon}
@@ -89,10 +118,10 @@ export const DashboardShowcase: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };

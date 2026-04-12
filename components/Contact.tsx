@@ -1,6 +1,7 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
@@ -89,10 +90,22 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-slate-900 text-white">
+    <motion.section
+      id="contact"
+      className="py-24 bg-slate-900 text-white"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+          >
             <h2 className="text-3xl font-extrabold sm:text-4xl mb-6">
               Get in touch
             </h2>
@@ -101,7 +114,16 @@ export const Contact: React.FC = () => {
               a personalized demo and answer any questions.
             </p>
 
-            <div className="space-y-8">
+            <motion.div
+              className="space-y-8"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
+              }}
+            >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-blue-400">
                   <Mail size={24} />
@@ -133,10 +155,16 @@ export const Contact: React.FC = () => {
                   </p>
                 </div>
               </div> */}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="bg-white rounded-2xl p-8 text-slate-900 shadow-xl">
+          <motion.div
+            className="bg-white rounded-2xl p-8 text-slate-900 shadow-xl"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
+          >
             <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -223,9 +251,9 @@ export const Contact: React.FC = () => {
                 {isPending ? "Sending..." : "Send Message"} <Send size={18} />
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

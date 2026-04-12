@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 import {
   BookOpen,
   BrainCircuit,
@@ -70,9 +73,22 @@ const features = [
 
 export const Features: React.FC = () => {
   return (
-    <section id="features" className="py-24 bg-white">
+    <motion.section
+      id="features"
+      className="py-24 bg-white"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
           <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">
             All-in-One Platform
           </h2>
@@ -83,13 +99,26 @@ export const Features: React.FC = () => {
             From the front office to the classroom, AcadoAi replaces fragmented
             tools with one unified, AI-enhanced platform.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+            },
+          }}
+        >
           {features.map((feature, index) => (
-            <div
+            <motion.div
               key={index}
               className="relative group p-6 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300"
+              variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <div
                 className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform`}
@@ -100,10 +129,10 @@ export const Features: React.FC = () => {
                 {feature.title}
               </h3>
               <p className="text-slate-500 leading-relaxed">{feature.desc}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
