@@ -1,13 +1,15 @@
-
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, PlayCircle } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, PlayCircle } from "lucide-react";
 
 export const Hero: React.FC = () => {
   return (
-    <section id="home" className="relative pt-20 pb-20 lg:pt-32 bg-white overflow-hidden">
+    <section
+      id="home"
+      className="relative pt-20 pb-20 lg:pt-32 bg-white overflow-hidden"
+    >
       {/* Background Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -31,8 +33,9 @@ export const Hero: React.FC = () => {
               </span>
             </h1>
             <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
-              AcadoAI unifies Students, Teachers, and Admins into one seamless ecosystem. 
-              Real-time analytics, AI tutoring, and automated management for the modern campus.
+              AcadoAI unifies Students, Teachers, and Admins into one seamless
+              ecosystem. Real-time analytics, AI tutoring, and automated
+              management for the modern campus.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button className="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">

@@ -4,7 +4,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AcadoAI - The Future of Education Management",
-  description: "AcadoAI education ERP landing page with integrated contact workflow.",
+  description:
+    "AcadoAI education ERP landing page with integrated contact workflow.",
 };
 
 export default function RootLayout({
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Script src="https://cdn.tailwindcss.com" strategy="beforeInteractive" />
+        <Script
+          src="https://cdn.tailwindcss.com"
+          strategy="beforeInteractive"
+        />
         {children}
       </body>
     </html>
