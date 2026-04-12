@@ -73,7 +73,10 @@ export const Finance: React.FC = () => {
             <motion.div
               key={card.label}
               className="rounded-2xl border border-slate-100 bg-slate-50 p-6 text-center shadow-sm"
-              variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.35, ease: "easeOut" }}
             >
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm border border-slate-100">

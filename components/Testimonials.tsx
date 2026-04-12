@@ -72,7 +72,10 @@ export const Testimonials: React.FC = () => {
             <motion.div
               key={item.name}
               className="rounded-2xl border border-slate-100 bg-white p-7 shadow-sm"
-              variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.35, ease: "easeOut" }}
             >
               <div className="mb-4 text-yellow-500">{item.stars}</div>

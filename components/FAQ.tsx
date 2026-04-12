@@ -81,7 +81,10 @@ export const FAQ: React.FC = () => {
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className="w-full rounded-2xl border border-slate-100 bg-slate-50 p-6 text-left shadow-sm transition hover:border-blue-200"
-                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
                 <div className="flex items-center justify-between gap-4">

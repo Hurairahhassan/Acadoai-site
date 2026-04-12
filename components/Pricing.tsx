@@ -103,7 +103,10 @@ export const Pricing: React.FC = () => {
             <motion.div
               key={index}
               className={`relative flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden border ${tier.highlight ? "border-blue-500 ring-2 ring-blue-500 ring-opacity-50 scale-105 z-10" : "border-slate-200 hover:border-blue-300 transition-colors"}`}
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               {tier.highlight && (

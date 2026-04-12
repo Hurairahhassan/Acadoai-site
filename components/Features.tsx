@@ -117,7 +117,10 @@ export const Features: React.FC = () => {
             <motion.div
               key={index}
               className="relative group p-6 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300"
-              variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 22 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <div

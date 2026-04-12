@@ -73,7 +73,10 @@ export const Security: React.FC = () => {
             <motion.div
               key={card.title}
               className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm"
-              variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.35, ease: "easeOut" }}
             >
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-slate-50 border border-slate-100">

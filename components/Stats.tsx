@@ -3,12 +3,35 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const stats = [
+const defaultStats = [
   { value: "500+", label: "Schools Onboarded" },
   { value: "2M+", label: "Students Managed" },
   { value: "98%", label: "Admin Time Saved" },
   { value: "40+", label: "Countries" },
   { value: "99.9%", label: "Uptime SLA" },
+];
+
+const stats = [
+  {
+    value: process.env.NEXT_PUBLIC_STATS_1_VALUE ?? defaultStats[0].value,
+    label: defaultStats[0].label,
+  },
+  {
+    value: process.env.NEXT_PUBLIC_STATS_2_VALUE ?? defaultStats[1].value,
+    label: defaultStats[1].label,
+  },
+  {
+    value: process.env.NEXT_PUBLIC_STATS_3_VALUE ?? defaultStats[2].value,
+    label: defaultStats[2].label,
+  },
+  {
+    value: process.env.NEXT_PUBLIC_STATS_4_VALUE ?? defaultStats[3].value,
+    label: defaultStats[3].label,
+  },
+  {
+    value: process.env.NEXT_PUBLIC_STATS_5_VALUE ?? defaultStats[4].value,
+    label: defaultStats[4].label,
+  },
 ];
 
 export const Stats: React.FC = () => {
@@ -36,7 +59,10 @@ export const Stats: React.FC = () => {
           {stats.map((stat) => (
             <motion.div
               key={stat.label}
-              variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 16 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <div className="text-4xl font-extrabold tracking-tight text-blue-600">

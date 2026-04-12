@@ -41,7 +41,9 @@ export const About: React.FC = () => {
               viewport={{ once: true, amount: 0.2 }}
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
+                visible: {
+                  transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+                },
               }}
             >
               {[
@@ -64,7 +66,10 @@ export const About: React.FC = () => {
                 <motion.div
                   key={i}
                   className="flex gap-4"
-                  variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 16 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
                 >
                   <div className="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center shrink-0">
@@ -93,12 +98,17 @@ export const About: React.FC = () => {
               viewport={{ once: true, amount: 0.25 }}
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
+                visible: {
+                  transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+                },
               }}
             >
               <motion.div
                 className="bg-blue-600 text-white p-5 rounded-xl mb-4 shadow-lg"
-                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 18 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
                 <div className="text-xs uppercase tracking-[0.2em] text-blue-100 mb-2">
@@ -111,7 +121,10 @@ export const About: React.FC = () => {
               </motion.div>
               <motion.div
                 className="bg-emerald-50 border border-emerald-100 text-emerald-900 p-5 rounded-xl mb-4 ml-8 shadow-sm"
-                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 18 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
                 <div className="text-xs uppercase tracking-[0.2em] text-emerald-500 mb-2">
@@ -125,7 +138,10 @@ export const About: React.FC = () => {
               </motion.div>
               <motion.div
                 className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm"
-                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 18 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
                 <div className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-2">
@@ -138,7 +154,10 @@ export const About: React.FC = () => {
               </motion.div>
               <motion.div
                 className="bg-emerald-50 border border-emerald-100 text-emerald-900 p-5 rounded-xl mt-4 ml-8 shadow-sm"
-                variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 18 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
                 <div className="text-xs uppercase tracking-[0.2em] text-emerald-500 mb-2">

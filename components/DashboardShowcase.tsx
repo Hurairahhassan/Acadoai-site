@@ -95,7 +95,10 @@ export const DashboardShowcase: React.FC = () => {
             <motion.div
               key={card.label}
               className={`rounded-2xl border p-8 shadow-sm ${card.accent} bg-white`}
-              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.45, ease: "easeOut" }}
             >
               <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm border border-slate-100 mb-5">

@@ -121,7 +121,9 @@ export const Contact: React.FC = () => {
               viewport={{ once: true, amount: 0.25 }}
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
+                visible: {
+                  transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+                },
               }}
             >
               <div className="flex items-center gap-4">
