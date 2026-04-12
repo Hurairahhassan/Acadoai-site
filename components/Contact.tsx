@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useActionState } from "react";
+import emailjs from "@emailjs/browser";
+import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 type ContactFormState = {
@@ -8,23 +9,84 @@ type ContactFormState = {
   message: string;
 };
 
-type ContactProps = {
-  submitAction: (
-    state: ContactFormState,
-    formData: FormData,
-  ) => Promise<ContactFormState>;
-};
-
 const initialState: ContactFormState = {
   status: "idle",
   message: "",
 };
 
-export const Contact: React.FC<ContactProps> = ({ submitAction }) => {
-  const [state, formAction, isPending] = useActionState(
-    submitAction,
-    initialState,
-  );
+export const Contact: React.FC = () => {
+  const [state, setState] = useState<ContactFormState>(initialState);
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const firstName = String(formData.get("firstName") ?? "").trim();
+    const lastName = String(formData.get("lastName") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const institutionType = String(
+      formData.get("institutionType") ?? "",
+    ).trim();
+    const message = String(formData.get("message") ?? "").trim();
+
+    if (!firstName || !lastName || !email || !institutionType || !message) {
+      setState({
+        status: "error",
+        message: "Please fill in all fields before submitting.",
+      });
+      return;
+    }
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setState({
+        status: "error",
+        message: "Email service is not configured yet. Please try again later.",
+      });
+      return;
+    }
+
+    setIsPending(true);
+    setState(initialState);
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          first_name: firstName,
+          last_name: lastName,
+          user_email: email,
+          institution_type: institutionType,
+          message,
+          submitted_at: new Date().toISOString(),
+        },
+        {
+          publicKey,
+        },
+      );
+
+      setState({
+        status: "success",
+        message: "Thanks! Your message has been sent successfully.",
+      });
+      form.reset();
+    } catch (error) {
+      console.error("EmailJS submission failed:", error);
+      setState({
+        status: "error",
+        message: "Submission failed. Please try again in a moment.",
+      });
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-24 bg-slate-900 text-white">
@@ -76,8 +138,8 @@ export const Contact: React.FC<ContactProps> = ({ submitAction }) => {
 
           <div className="bg-white rounded-2xl p-8 text-slate-900 shadow-xl">
             <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
-            <form action={formAction} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">
                     First Name
@@ -103,6 +165,7 @@ export const Contact: React.FC<ContactProps> = ({ submitAction }) => {
                   />
                 </div>
               </div>
+
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
                   Email
@@ -115,6 +178,7 @@ export const Contact: React.FC<ContactProps> = ({ submitAction }) => {
                   required
                 />
               </div>
+
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
                   Institution Type
@@ -129,6 +193,7 @@ export const Contact: React.FC<ContactProps> = ({ submitAction }) => {
                   <option>Coaching Center</option>
                 </select>
               </div>
+
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
                   Message
@@ -139,8 +204,9 @@ export const Contact: React.FC<ContactProps> = ({ submitAction }) => {
                   className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   placeholder="Tell us about your needs..."
                   required
-                ></textarea>
+                />
               </div>
+
               {state.status !== "idle" && (
                 <p
                   className={`text-sm ${state.status === "success" ? "text-green-700" : "text-red-700"}`}
@@ -148,6 +214,7 @@ export const Contact: React.FC<ContactProps> = ({ submitAction }) => {
                   {state.message}
                 </p>
               )}
+
               <button
                 type="submit"
                 disabled={isPending}

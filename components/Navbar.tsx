@@ -9,7 +9,10 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "Features", href: "#features" },
-    { name: "About", href: "#about" },
+    { name: "Portals", href: "#portals" },
+    { name: "AI Tools", href: "#ai" },
+    { name: "Pricing", href: "#pricing" },
+    { name: "FAQ", href: "#faq" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -45,7 +48,7 @@ export const Navbar: React.FC = () => {
 
           <div className="hidden lg:block">
             <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20">
-              Get Started
+              Get Started Free
             </button>
           </div>
 
@@ -79,7 +82,7 @@ export const Navbar: React.FC = () => {
               </a>
             ))}
             <button className="w-full text-left bg-blue-600 text-white px-3 py-2 rounded-md text-base font-medium mt-4">
-              Get Started
+              Get Started Free
             </button>
           </div>
         </div>

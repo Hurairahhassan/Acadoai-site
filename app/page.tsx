@@ -5,7 +5,12 @@ import { Features } from "../components/Features";
 import { Footer } from "../components/Footer";
 import { Hero } from "../components/Hero";
 import { Navbar } from "../components/Navbar";
-import { submitContactForm } from "./actions/contact";
+import { Pricing } from "../components/Pricing";
+import { Stats } from "../components/Stats";
+import { Finance } from "../components/Finance";
+import { Testimonials } from "../components/Testimonials";
+import { Security } from "../components/Security";
+import { FAQ } from "../components/FAQ";
 
 export default function Home() {
   return (
@@ -13,10 +18,16 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Stats />
         <Features />
         <DashboardShowcase />
         <About />
-        <Contact submitAction={submitContactForm} />
+        <Finance />
+        <Testimonials />
+        <Pricing />
+        <Security />
+        <FAQ />
+        <Contact />
       </main>
       <Footer />
     </div>
