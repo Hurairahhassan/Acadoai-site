@@ -80,7 +80,8 @@ export const Features: React.FC = () => {
             Every tool your school needs, in one intelligent system
           </p>
           <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-            From the front office to the classroom, AcadoAi replaces fragmented tools with one unified, AI-enhanced platform.
+            From the front office to the classroom, AcadoAi replaces fragmented
+            tools with one unified, AI-enhanced platform.
           </p>
         </div>
 
