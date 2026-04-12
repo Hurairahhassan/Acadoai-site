@@ -108,7 +108,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold">Email Us</h4>
-                  <p className="text-slate-400">hello@acadoai.com</p>
+                  <p className="text-slate-400">info@synapticssolution.com</p>
                 </div>
               </div>
 
@@ -118,11 +118,11 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold">Call Us</h4>
-                  <p className="text-slate-400">+1 (555) 123-4567</p>
+                  <p className="text-slate-400">+92 313 1204236</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              {/* <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-green-400">
                   <MapPin size={24} />
                 </div>
@@ -132,7 +132,7 @@ export const Contact: React.FC = () => {
                     123 Innovation Dr, Tech City, CA 94043
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

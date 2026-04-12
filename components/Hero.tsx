@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 
 export const Hero: React.FC = () => {
+  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL ?? "#";
+
   return (
     <section
       id="home"
@@ -38,12 +40,22 @@ export const Hero: React.FC = () => {
               tomorrow.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
+              <a
+                href={calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2"
+              >
                 Start Free Trial <ArrowRight size={20} />
-              </button>
-              <button className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+              </a>
+              <a
+                href={calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+              >
                 <PlayCircle size={20} /> Watch Demo
-              </button>
+              </a>
             </div>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-500">
               {[

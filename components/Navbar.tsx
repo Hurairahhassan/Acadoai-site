@@ -5,6 +5,7 @@ import { Menu, X, GraduationCap } from "lucide-react";
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL ?? "#";
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -47,9 +48,14 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className="hidden lg:block">
-            <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20">
+            <a
+              href={calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20"
+            >
               Get Started Free
-            </button>
+            </a>
           </div>
 
           <div className="-mr-2 flex lg:hidden">
@@ -81,9 +87,14 @@ export const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
-            <button className="w-full text-left bg-blue-600 text-white px-3 py-2 rounded-md text-base font-medium mt-4">
+            <a
+              href={calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-left bg-blue-600 text-white px-3 py-2 rounded-md text-base font-medium mt-4"
+            >
               Get Started Free
-            </button>
+            </a>
           </div>
         </div>
       )}

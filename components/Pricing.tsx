@@ -2,6 +2,8 @@ import React from "react";
 import { ArrowRight, CheckCircle } from "lucide-react";
 
 export const Pricing: React.FC = () => {
+  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL ?? "#";
+
   const tiers = [
     {
       name: "Starter",
@@ -106,11 +108,14 @@ export const Pricing: React.FC = () => {
                 </ul>
               </div>
               <div className="p-8 bg-slate-50 border-t border-slate-100">
-                <button
+                <a
+                  href={calendlyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-xl text-sm font-bold transition-all ${tier.highlight ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/30" : "bg-white text-blue-600 border-blue-200 hover:bg-blue-50"}`}
                 >
                   {tier.cta} <ArrowRight size={16} className="ml-2" />
-                </button>
+                </a>
               </div>
             </div>
           ))}
