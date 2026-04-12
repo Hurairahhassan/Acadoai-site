@@ -1,30 +1,34 @@
+"use client";
 
-import React, { useState } from 'react';
-import { Menu, X, GraduationCap } from 'lucide-react';
+import React, { useState } from "react";
+import { Menu, X, GraduationCap } from "lucide-react";
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Features', href: '#features' },
-    { name: 'Dashboards', href: '#dashboards' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Home", href: "#home" },
+    { name: "Features", href: "#features" },
+    { name: "About", href: "#about" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => window.scrollTo(0, 0)}
+          >
             <div className="bg-blue-600 p-1.5 rounded-lg">
               <GraduationCap className="h-6 w-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-slate-900 tracking-tight">AcadoAI</span>
+            <span className="text-xl font-bold text-slate-900 tracking-tight">
+              AcadoAI
+            </span>
           </div>
-          
+
           <div className="hidden lg:block">
             <div className="ml-10 flex items-baseline space-x-6">
               {navLinks.map((link) => (
@@ -50,7 +54,11 @@ export const Navbar: React.FC = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="bg-slate-100 inline-flex items-center justify-center p-2 rounded-md text-slate-800 hover:text-blue-600 focus:outline-none"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>

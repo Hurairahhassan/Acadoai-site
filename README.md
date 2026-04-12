@@ -1,20 +1,54 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# AcadoAI Site (Next.js)
 
-# Run and deploy your AI Studio app
+This project now runs on Next.js with a Server Action based contact form.
 
-This contains everything you need to run your app locally.
+## What happens on contact submit
 
-View your app in AI Studio: https://ai.studio/apps/drive/1C0d0jySBon-JnQKRzANAxY_ZyGYgBBKO
+1. Form submission is handled server-side in app/actions/contact.ts.
+2. Data is appended to your Google Sheet.
+3. A notification email is sent using Nodemailer.
 
-## Run Locally
+No separate backend repository is needed. The server code runs inside your Next.js app.
 
-**Prerequisites:**  Node.js
-
+## Setup
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+
+   npm install
+
+2. Copy env template:
+
+   copy .env.example .env.local
+
+3. Fill values in .env.local:
+
+   GOOGLE_SERVICE_ACCOUNT_EMAIL
+   GOOGLE_PRIVATE_KEY
+   GOOGLE_SHEET_ID
+   GOOGLE_SHEET_RANGE (optional, default Sheet1!A:G)
+   SMTP_HOST
+   SMTP_PORT
+   SMTP_SECURE
+   SMTP_USER
+   SMTP_PASS
+   CONTACT_RECEIVER_EMAIL
+   CONTACT_SENDER_EMAIL (optional)
+
+4. Run locally:
+
+   npm run dev
+
+## Google Sheets requirements
+
+1. Create a Google Cloud service account.
+2. Enable Google Sheets API.
+3. Share your target sheet with the service account email as Editor.
+4. Use the spreadsheet id from the sheet URL as GOOGLE_SHEET_ID.
+
+## SMTP notes
+
+For Gmail SMTP, use an app password (not your normal account password).
+
+## Deploy
+
+Deploy the same Next.js project to Vercel (or any Node-compatible host) and set the same environment variables there.
