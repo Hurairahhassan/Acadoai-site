@@ -17,7 +17,9 @@ const portalCards = [
       "Attendance tracking for staff and students",
       "Role-based permission controls",
     ],
-    accent: "border-blue-200 bg-blue-50/50",
+    iconBg: "#2563eb",
+    accent: "rgba(37, 99, 235, 0.16)",
+    bullet: "#60a5fa",
   },
   {
     label: "Educator",
@@ -31,7 +33,9 @@ const portalCards = [
       "Class test, attendance, grading tools",
       "Student performance analytics",
     ],
-    accent: "border-emerald-200 bg-emerald-50/50",
+    iconBg: "#10b981",
+    accent: "rgba(16, 185, 129, 0.16)",
+    bullet: "#34d399",
   },
   {
     label: "Student",
@@ -45,7 +49,9 @@ const portalCards = [
       "Class schedule and timetable",
       "Multilingual audio learning support",
     ],
-    accent: "border-rose-200 bg-rose-50/50",
+    iconBg: "#f43f5e",
+    accent: "rgba(244, 63, 94, 0.14)",
+    bullet: "#fb7185",
   },
 ];
 
@@ -53,34 +59,36 @@ export const DashboardShowcase: React.FC = () => {
   return (
     <motion.section
       id="portals"
-      className="py-24 bg-slate-50"
+      className="bubble-section bubble-section-soft py-24"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
+      <span className="bubble-orb one" />
+      <span className="bubble-orb two" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="mx-auto mb-16 max-w-3xl text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
-          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">
+          <h2 className="text-sm font-black uppercase text-blue-700">
             Role-Based Access
           </h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-            Three portals, one platform.
+          <p className="mt-3 text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
+            Three portals, one calm operating system.
           </p>
-          <p className="mt-4 text-lg text-slate-600">
+          <p className="mt-4 text-lg leading-8 text-slate-600">
             Distinct experiences for every stakeholder so each role sees exactly
             what it needs.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 gap-5 lg:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
@@ -94,20 +102,28 @@ export const DashboardShowcase: React.FC = () => {
           {portalCards.map((card) => (
             <motion.div
               key={card.label}
-              className={`rounded-2xl border p-8 shadow-sm ${card.accent} bg-white`}
+              className="bubble-card p-7"
+              style={
+                {
+                  "--bubble-accent": card.accent,
+                  "--bubble-icon": card.iconBg,
+                } as React.CSSProperties
+              }
+              whileHover={{ y: -12, scale: 1.015 }}
+              whileTap={{ scale: 0.985 }}
               variants={{
                 hidden: { opacity: 0, y: 24 },
                 visible: { opacity: 1, y: 0 },
               }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
+              transition={{ type: "spring", stiffness: 240, damping: 22 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm border border-slate-100 mb-5">
+              <div className="bubble-icon mb-7 bg-white text-white [&_svg]:text-white">
                 {card.icon}
               </div>
-              <div className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3">
+              <div className="mb-3 text-xs font-black uppercase text-slate-500">
                 {card.label}
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-5">
+              <h3 className="mb-5 text-2xl font-black text-slate-950">
                 {card.title}
               </h3>
               <ul className="space-y-3">
@@ -116,7 +132,10 @@ export const DashboardShowcase: React.FC = () => {
                     key={item}
                     className="flex items-start gap-3 text-sm text-slate-600"
                   >
-                    <span className="mt-1 inline-block h-2 w-2 rounded-full bg-blue-500/70" />
+                    <span
+                      className="mt-1 inline-block h-2.5 w-2.5 rounded-full shadow-sm"
+                      style={{ backgroundColor: card.bullet }}
+                    />
                     <span>{item}</span>
                   </li>
                 ))}

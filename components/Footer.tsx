@@ -1,5 +1,5 @@
 import React from "react";
-import { GraduationCap, Twitter, Linkedin, Facebook, Mail } from "lucide-react";
+import { Twitter, Linkedin, Facebook, Mail } from "lucide-react";
 
 export const Footer: React.FC = () => {
   return (
@@ -7,12 +7,15 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4 text-white">
-              <GraduationCap className="h-8 w-8 text-blue-500" />
-              <span className="text-xl font-bold">AcadoAi</span>
+            <div className="mb-4 flex items-center text-white">
+              <img
+                src="/images/acado-edu-sys.svg"
+                alt="AcadoAI Education Management"
+                className="h-12 w-auto max-w-[190px] rounded-full bg-white px-3 py-1"
+              />
             </div>
             <p className="text-sm text-slate-400 mb-4">
-              All-in-one AI-powered school management platform for
+              All-in-one AI-powered Education Management platform for
               administration, teaching, student learning, and finance.
             </p>
           </div>
@@ -94,7 +97,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-          &copy; {new Date().getFullYear()} AcadoAi. All rights reserved.
+          &copy; {new Date().getFullYear()} AcadoAI. All rights reserved.
         </div>
       </div>
     </footer>

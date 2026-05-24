@@ -6,11 +6,12 @@ import { motion } from "framer-motion";
 const testimonials = [
   {
     stars: "★★★★★",
-    text: "AcadoAi transformed our administrative workload. What took our staff 3 hours a day now takes 20 minutes.",
+    text: "AcadoAI transformed our administrative workload. What took our staff 3 hours a day now takes 20 minutes.",
     name: "Ahmed Raza",
     role: "Principal, Beacon House School",
     avatar: "AR",
     avatarClass: "bg-indigo-100 text-indigo-700",
+    accent: "rgba(79, 70, 229, 0.14)",
   },
   {
     stars: "★★★★★",
@@ -19,6 +20,7 @@ const testimonials = [
     role: "Head of Science, EduFirst Academy",
     avatar: "SP",
     avatarClass: "bg-emerald-100 text-emerald-700",
+    accent: "rgba(16, 185, 129, 0.14)",
   },
   {
     stars: "★★★★★",
@@ -27,6 +29,7 @@ const testimonials = [
     role: "Operations Director, Horizon Schools",
     avatar: "NK",
     avatarClass: "bg-rose-100 text-rose-700",
+    accent: "rgba(244, 63, 94, 0.13)",
   },
 ];
 
@@ -34,12 +37,14 @@ export const Testimonials: React.FC = () => {
   return (
     <motion.section
       id="testimonials"
-      className="py-24 bg-slate-50"
+      className="bubble-section bubble-section-soft py-24"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
+      <span className="bubble-orb one" />
+      <span className="bubble-orb two" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="max-w-3xl"
@@ -48,10 +53,10 @@ export const Testimonials: React.FC = () => {
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
-          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">
+          <h2 className="text-sm font-black uppercase text-blue-700">
             Social Proof
           </h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <p className="mt-3 text-3xl font-black leading-tight text-slate-950 sm:text-5xl">
             Trusted by schools across the globe
           </p>
         </motion.div>
@@ -71,12 +76,18 @@ export const Testimonials: React.FC = () => {
           {testimonials.map((item) => (
             <motion.div
               key={item.name}
-              className="rounded-2xl border border-slate-100 bg-white p-7 shadow-sm"
+              className="bubble-card p-7"
+              style={
+                {
+                  "--bubble-accent": item.accent,
+                } as React.CSSProperties
+              }
+              whileHover={{ y: -10, rotate: -0.4 }}
               variants={{
                 hidden: { opacity: 0, y: 18 },
                 visible: { opacity: 1, y: 0 },
               }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
+              transition={{ type: "spring", stiffness: 260, damping: 23 }}
             >
               <div className="mb-4 text-yellow-500">{item.stars}</div>
               <p className="mb-6 text-sm leading-7 text-slate-600 italic">

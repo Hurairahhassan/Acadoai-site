@@ -37,15 +37,16 @@ const stats = [
 export const Stats: React.FC = () => {
   return (
     <motion.section
-      className="border-y border-slate-100 bg-slate-50 py-10"
+      className="bubble-section border-y border-slate-200 py-12"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
+      <span className="bubble-orb three" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="grid grid-cols-2 gap-6 text-center md:grid-cols-5"
+          className="grid grid-cols-2 gap-3 text-center md:grid-cols-5"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -59,16 +60,20 @@ export const Stats: React.FC = () => {
           {stats.map((stat) => (
             <motion.div
               key={stat.label}
+              className="bubble-card px-4 py-6"
+              whileHover={{ y: -8, scale: 1.02 }}
               variants={{
                 hidden: { opacity: 0, y: 16 },
                 visible: { opacity: 1, y: 0 },
               }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ type: "spring", stiffness: 260, damping: 24 }}
             >
-              <div className="text-4xl font-extrabold tracking-tight text-blue-600">
+              <div className="text-3xl font-black text-blue-700 sm:text-4xl">
                 {stat.value}
               </div>
-              <div className="mt-2 text-sm text-slate-500">{stat.label}</div>
+              <div className="mt-2 text-sm font-semibold text-slate-500">
+                {stat.label}
+              </div>
             </motion.div>
           ))}
         </motion.div>
