@@ -6,7 +6,6 @@ import { Features } from "../components/Features";
 import { Footer } from "../components/Footer";
 import { Hero } from "../components/Hero";
 import { Navbar } from "../components/Navbar";
-import { Stats } from "../components/Stats";
 import { Finance } from "../components/Finance";
 import { Security } from "../components/Security";
 import { FAQ } from "../components/FAQ";
@@ -18,7 +17,6 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Stats />
         <ProblemSolution />
         <CompetitorComparison />
         <Features />

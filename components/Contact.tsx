@@ -28,13 +28,22 @@ const contactCards = [
   {
     icon: <Mail size={22} />,
     title: "Email Us",
-    value: "info@synapticssolution.com",
+    value: "info@acadoai.com",
+    href: "mailto:info@acadoai.com",
+    color: "text-blue-300",
+  },
+  {
+    icon: <Mail size={22} />,
+    title: "Support",
+    value: "support@acadoai.com",
+    href: "mailto:support@acadoai.com",
     color: "text-blue-300",
   },
   {
     icon: <Phone size={22} />,
     title: "Call Us",
     value: "+92 313 1204236",
+    href: "tel:+923131204236",
     color: "text-violet-300",
   },
 ];
@@ -199,7 +208,7 @@ export const Contact: React.FC = () => {
               {contactCards.map((card) => (
                 <motion.a
                   key={card.title}
-                  href={card.title === "Email Us" ? `mailto:${card.value}` : `tel:${card.value.replaceAll(" ", "")}`}
+                  href={card.href}
                   className="group flex max-w-xl items-center gap-4 rounded-[30px] border border-white/10 bg-white/[0.07] p-4 backdrop-blur transition-colors hover:bg-white/[0.11]"
                   variants={{
                     hidden: { opacity: 0, y: 16 },
