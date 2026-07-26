@@ -97,7 +97,17 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-          &copy; {new Date().getFullYear()} AcadoAI. All rights reserved.
+          <div>
+            &copy; {new Date().getFullYear()} AcadoAI. All rights reserved.
+          </div>
+          <a
+            href="/terms-and-conditions"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-block font-semibold text-slate-400 hover:text-blue-400"
+          >
+            Terms and Conditions
+          </a>
         </div>
       </div>
     </footer>
