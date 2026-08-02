@@ -100,14 +100,24 @@ export const Footer: React.FC = () => {
           <div>
             &copy; {new Date().getFullYear()} AcadoAI. All rights reserved.
           </div>
-          <a
-            href="/terms-and-conditions"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-block font-semibold text-slate-400 hover:text-blue-400"
-          >
-            Terms and Conditions
-          </a>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <a
+              href="/terms-and-conditions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-400 hover:text-blue-400"
+            >
+              Terms and Conditions
+            </a>
+            <a
+              href="/delete-account"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-400 hover:text-blue-400"
+            >
+              Delete Account
+            </a>
+          </div>
         </div>
       </div>
     </footer>
