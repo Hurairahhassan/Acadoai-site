@@ -65,7 +65,7 @@ const sections = [
   {
     title: "2. Account Deletion",
     body: [
-      "When a verified user requests account deletion, AcadoAI will remove or disable the user's access account and delete or anonymize eligible personal data associated with that account, subject to the retention rules explained on this page.",
+      "When a verified user requests account deletion, AcadoAI will remove the user's access account and delete or anonymize eligible personal data associated with that account, subject to the retention rules explained on this page.",
       "If the account is managed by a school, academy, or other institution, the institution may need to confirm the account status or preserve official records. Account deletion removes personal access to AcadoAI but does not erase official school records that belong to the institution.",
     ],
   },

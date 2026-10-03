@@ -102,6 +102,14 @@ export const Footer: React.FC = () => {
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <a
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-400 hover:text-blue-400"
+            >
+              Privacy Policy
+            </a>
+            <a
               href="/terms-and-conditions"
               target="_blank"
               rel="noopener noreferrer"
