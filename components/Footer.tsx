@@ -1,133 +1,81 @@
-import React from "react";
-import { Twitter, Linkedin, Facebook, Mail } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { nav, site } from "../content/pages";
 
-export const Footer: React.FC = () => {
-  return (
-    <footer className="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          <div className="col-span-1 md:col-span-1">
-            <div className="mb-4 flex items-center text-white">
-              <img
-                src="/images/acado-edu-sys.svg"
-                alt="AcadoAI Education Management"
-                className="h-12 w-auto max-w-[190px] rounded-full bg-white px-3 py-1"
-              />
-            </div>
-            <p className="text-sm text-slate-400 mb-4">
-              All-in-one AI-powered Education Management platform for
-              administration, teaching, student learning, and finance.
-            </p>
-          </div>
+const columns = [
+  { title: "Product", links: nav.product },
+  { title: "Solutions", links: nav.solutions },
+  { title: "Compare", links: nav.compare },
+  {
+    title: "Company",
+    links: [
+      { name: "Pricing", href: "/pricing" },
+      { name: "About", href: "/about" },
+      { name: "Contact", href: "/contact" },
+    ],
+  },
+];
 
-          <div>
-            <h4 className="text-white font-bold mb-4">Product</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#features" className="hover:text-blue-400">
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="#ai" className="hover:text-blue-400">
-                  AI Tools
-                </a>
-              </li>
-              <li>
-                <a href="#portals" className="hover:text-blue-400">
-                  Portals
-                </a>
-              </li>
-              <li>
-                <a href="#pricing" className="hover:text-blue-400">
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-blue-400">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
+const legal = [
+  { name: "Privacy Policy", href: "/privacy-policy" },
+  { name: "Terms & Conditions", href: "/terms-and-conditions" },
+  { name: "Delete Account", href: "/delete-account" },
+];
 
-          <div>
-            <h4 className="text-white font-bold mb-4">Company</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#ai" className="hover:text-blue-400">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-blue-400">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="#security" className="hover:text-blue-400">
-                  Security
-                </a>
-              </li>
-              <li>
-                <a href="#testimonials" className="hover:text-blue-400">
-                  Testimonials
-                </a>
-              </li>
-            </ul>
-          </div>
+const socialName = (url: string) => new URL(url).hostname.replace(/^www\./, "").split(".")[0];
 
-          <div>
-            <h4 className="text-white font-bold mb-4">Contact</h4>
-            <div className="flex items-center gap-2 text-sm mb-2">
-              <Mail size={16} /> hello@acadoai.com
-            </div>
-            <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-slate-400 hover:text-white">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-slate-400 hover:text-white">
-                <Linkedin size={20} />
-              </a>
-              <a href="#" className="text-slate-400 hover:text-white">
-                <Facebook size={20} />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-          <div>
-            &copy; {new Date().getFullYear()} AcadoAI. All rights reserved.
-          </div>
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-            <a
-              href="/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-slate-400 hover:text-blue-400"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="/terms-and-conditions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-slate-400 hover:text-blue-400"
-            >
-              Terms and Conditions
-            </a>
-            <a
-              href="/delete-account"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-slate-400 hover:text-blue-400"
-            >
-              Delete Account
-            </a>
-          </div>
-        </div>
+export const Footer = () => (
+  <footer className="bg-night text-white">
+    <div className="container-x grid gap-12 py-20 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
+      <div className="max-w-xs">
+        <Link href="/" aria-label="AcadoAI home">
+          <Image src="/images/acado-edu-sys.svg" alt="AcadoAI" width={180} height={48} className="h-10 w-auto brightness-0 invert" />
+        </Link>
+        <p className="mt-6 leading-7 text-white/60">AI-powered education management for administration, teaching, finance and student learning.</p>
+        <address className="mt-6 space-y-1 text-sm not-italic text-white/60">
+          <a href={`mailto:${site.email}`} className="link-underline block w-fit hover:text-white">
+            {site.email}
+          </a>
+          <a href={site.phoneHref} className="link-underline block w-fit hover:text-white">
+            {site.phone}
+          </a>
+        </address>
       </div>
-    </footer>
-  );
-};
+      {columns.map((col) => (
+        <nav key={col.title} aria-label={col.title}>
+          <p className="eyebrow mb-5 text-sky">{col.title}</p>
+          <ul className="space-y-3 text-[15px] text-white/70">
+            {col.links.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="link-underline hover:text-white">
+                  {l.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+    <div className="border-t border-white/10">
+      <div className="container-x flex flex-col gap-4 py-8 text-sm text-white/50 md:flex-row md:items-center md:justify-between">
+        <p>© {new Date().getFullYear()} AcadoAI. All rights reserved.</p>
+        <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          {legal.map((l) => (
+            <li key={l.href}>
+              <Link href={l.href} className="link-underline hover:text-white">
+                {l.name}
+              </Link>
+            </li>
+          ))}
+          {site.socials.map((url) => (
+            <li key={url}>
+              <a href={url} target="_blank" rel="noopener noreferrer me" className="link-underline capitalize hover:text-white">
+                {socialName(url)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </footer>
+);

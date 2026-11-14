@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import {
   ArrowLeft,
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   title: "Terms and Conditions | AcadoAI",
   description:
     "Read the Terms and Conditions for using AcadoAI's education management platform, website, and mobile applications.",
+  alternates: { canonical: "/terms-and-conditions" },
 };
 
 const lastUpdated = "July 26, 2026";
@@ -174,11 +176,7 @@ export default function TermsAndConditionsPage() {
       <header className="border-b border-slate-200 bg-white/95">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
           <a href="/" className="flex min-w-0 items-center">
-            <img
-              src="/images/acado-edu-sys.svg"
-              alt="AcadoAI Education Management"
-              className="h-12 w-auto max-w-[180px] object-contain sm:h-14 sm:max-w-[220px]"
-            />
+            <Image src="/images/acado-edu-sys.svg" alt="AcadoAI Education Management" width={220} height={56} priority className="h-12 w-auto max-w-[180px] object-contain sm:h-14 sm:max-w-[220px]" />
           </a>
           <a
             href="/"

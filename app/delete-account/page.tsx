@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import {
   ArrowLeft,
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   title: "Delete Account and Data Policy | AcadoAI",
   description:
     "Learn how AcadoAI users can request account deletion, personal data deletion, and deletion of user-created content while official school records are retained according to school policies and legal requirements.",
+  alternates: { canonical: "/delete-account" },
 };
 
 const lastUpdated = "August 2, 2026";
@@ -125,11 +127,7 @@ export default function DeleteAccountPage() {
       <header className="border-b border-slate-200 bg-white/95">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
           <a href="/" className="flex min-w-0 items-center">
-            <img
-              src="/images/acado-edu-sys.svg"
-              alt="AcadoAI Education Management"
-              className="h-12 w-auto max-w-[180px] object-contain sm:h-14 sm:max-w-[220px]"
-            />
+            <Image src="/images/acado-edu-sys.svg" alt="AcadoAI Education Management" width={220} height={56} priority className="h-12 w-auto max-w-[180px] object-contain sm:h-14 sm:max-w-[220px]" />
           </a>
           <a
             href="/"
