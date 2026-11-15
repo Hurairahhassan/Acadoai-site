@@ -2,8 +2,8 @@
 
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
-import { ArrowRight, Mail, Phone } from "lucide-react";
+import React, { useRef, useState } from "react";
+import { ArrowRight, CalendarCheck, Check, Mail, Phone, X } from "lucide-react";
 import { site } from "../content/pages";
 import { Reveal } from "./motion";
 
@@ -39,6 +39,9 @@ export const isValidPhone = (v: string) => /^\+?[\d\s\-()]+$/.test(v) && (v.matc
 export const Contact: React.FC = () => {
   const [state, setState] = useState<ContactFormState>(initialState);
   const [isPending, setIsPending] = useState(false);
+  const [sent, setSent] = useState<{ name: string; org: string; email: string } | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeDialog = () => dialogRef.current?.close();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -95,27 +98,31 @@ export const Contact: React.FC = () => {
           first_name: firstName,
           last_name: lastName,
           user_email: email,
+          reply_to: email,
+          // aliases for EmailJS preset templates, which use {{name}} / {{email}}
+          name: `${firstName} ${lastName}`,
+          email,
           phone,
           organization_name: organization,
           institution_type: institutionType,
           message: message || "(no message)",
-          submitted_at: new Date().toISOString(),
+          page_url: window.location.href,
+          submitted_at: new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }),
         },
         {
           publicKey,
         },
       );
 
-      setState({
-        status: "success",
-        message: "Thanks! Your message has been sent successfully.",
-      });
+      setState(initialState);
+      setSent({ name: firstName, org: organization, email });
       form.reset();
+      dialogRef.current?.showModal();
     } catch (error) {
       console.error("EmailJS submission failed:", error);
       setState({
         status: "error",
-        message: "Submission failed. Please try again in a moment.",
+        message: `We couldn't send your request right now. Please try again, or email us at ${site.email}.`,
       });
     } finally {
       setIsPending(false);
@@ -187,12 +194,12 @@ export const Contact: React.FC = () => {
               <textarea id="message" name="message" rows={3} className={inputClass} placeholder="Number of students, campuses, current software…" />
             </div>
 
-            {state.status !== "idle" && (
+            {state.status === "error" && (
               <motion.p
-                role="status"
+                role="alert"
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`rounded-lg px-4 py-3 text-sm font-semibold ${state.status === "success" ? "bg-sky/30 text-navy" : "bg-red-50 text-red-700"}`}
+                className="rounded-lg bg-red-50 px-4 py-3 text-sm font-semibold text-red-700"
               >
                 {state.message}
               </motion.p>
@@ -209,6 +216,57 @@ export const Contact: React.FC = () => {
           </form>
         </Reveal>
       </div>
+
+      {/* Success popup: native <dialog> gives Esc-to-close, focus trap and backdrop */}
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="sent-title"
+        onClick={(e) => e.target === e.currentTarget && closeDialog()}
+        className="m-auto w-[min(92vw,30rem)] rounded-[1.75rem] bg-transparent p-0 backdrop:bg-night/60 backdrop:backdrop-blur-sm"
+      >
+        {sent && (
+          <motion.div
+            key={sent.email + sent.org}
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 26 }}
+            className="relative overflow-hidden rounded-[1.75rem] bg-white text-center text-ink"
+          >
+            <div className="bg-[linear-gradient(160deg,#e4f3ff,#eef1ff)] px-8 pt-10 pb-8">
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.15, type: "spring", stiffness: 400, damping: 15 }}
+                className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-royal text-white shadow-[0_12px_30px_-10px_rgba(42,58,186,0.8)]"
+              >
+                <Check className="h-8 w-8" strokeWidth={2.5} aria-hidden />
+              </motion.span>
+              <h3 id="sent-title" className="mt-6 text-3xl font-semibold">Thank you, {sent.name}!</h3>
+              <p className="mt-3 leading-7 text-muted">
+                Your demo request for <b className="text-ink">{sent.org}</b> has been received. Our team will contact you within one business day.
+              </p>
+            </div>
+            <div className="space-y-3 px-8 py-7">
+              <p className="text-sm text-muted">
+                A confirmation is on its way to <b className="text-ink">{sent.email}</b>.
+              </p>
+              <a
+                href={site.demoUrl}
+                onClick={closeDialog}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-royal py-3.5 font-semibold text-white transition-colors hover:bg-brand"
+              >
+                <CalendarCheck className="h-4 w-4" aria-hidden /> Pick a demo time now
+              </a>
+              <button type="button" onClick={closeDialog} className="w-full rounded-xl py-3 font-semibold text-ink ring-1 ring-line transition-colors hover:bg-paper">
+                Close
+              </button>
+            </div>
+            <button type="button" onClick={closeDialog} aria-label="Close" className="absolute top-4 right-4 grid h-9 w-9 place-items-center rounded-full bg-white/80 text-ink hover:bg-white">
+              <X className="h-4 w-4" aria-hidden />
+            </button>
+          </motion.div>
+        )}
+      </dialog>
     </section>
   );
 };

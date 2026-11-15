@@ -5,7 +5,6 @@ import { nav, site } from "../content/pages";
 const columns = [
   { title: "Product", links: nav.product },
   { title: "Solutions", links: nav.solutions },
-  { title: "Compare", links: nav.compare },
   {
     title: "Company",
     links: [
@@ -26,7 +25,7 @@ const socialName = (url: string) => new URL(url).hostname.replace(/^www\./, "").
 
 export const Footer = () => (
   <footer className="bg-night text-white">
-    <div className="container-x grid gap-12 py-20 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
+    <div className="container-x grid gap-12 py-20 lg:grid-cols-[1.2fr_repeat(3,1fr)]">
       <div className="max-w-xs">
         <Link href="/" aria-label="AcadoAI home">
           <Image src="/images/acado-edu-sys.svg" alt="AcadoAI" width={180} height={48} className="h-10 w-auto brightness-0 invert" />

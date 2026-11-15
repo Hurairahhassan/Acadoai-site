@@ -73,6 +73,12 @@
       transform: translate3d(20%, 10%, 0) rotate(8deg);
     }
   }
+  @keyframes popIn {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.97);
+    }
+  }
 }
 
 @layer base {

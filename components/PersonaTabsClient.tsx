@@ -77,7 +77,7 @@ export function PersonaTabsClient({ personas, screens }: { personas: typeof Pers
           </motion.div>
         </AnimatePresence>
 
-        <div className="relative rounded-[2rem] bg-[linear-gradient(160deg,#e6f3ff,#f3f5ff)] p-6 sm:p-10">
+        <div className={`relative rounded-[2rem] bg-[linear-gradient(160deg,#e6f3ff,#f3f5ff)] ${p.id === "leaders" || p.id === "teachers" || p.id === "students" ? "p-3 sm:p-4" : "p-6 sm:p-10"}`}>
           <AnimatePresence mode="wait">
             <motion.div
               key={p.id}

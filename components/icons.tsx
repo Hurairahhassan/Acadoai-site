@@ -7,6 +7,10 @@ import {
   Building2,
   CalendarDays,
   CircleCheckBig,
+  Database,
+  KeyRound,
+  Lock,
+  Server,
   GraduationCap,
   MessagesSquare,
   School,
@@ -21,6 +25,10 @@ import {
 import type { IconName } from "../content/pages";
 
 export const icons: Record<IconName, LucideIcon> = {
+  database: Database,
+  server: Server,
+  key: KeyRound,
+  lock: Lock,
   users: Users,
   calendar: CalendarDays,
   check: CircleCheckBig,

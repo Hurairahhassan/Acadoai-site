@@ -131,7 +131,7 @@ export const Navbar = () => {
                   </div>
                 </div>
               ) : (
-                <div className="grid grid-cols-[1fr_1fr_280px] gap-10">
+                <div className="grid grid-cols-[1fr_280px] gap-10">
                   <div>
                     <p className="eyebrow mb-3 px-3 text-muted">By institution</p>
                     <ul>
@@ -144,18 +144,6 @@ export const Navbar = () => {
                           </li>
                         );
                       })}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="eyebrow mb-3 px-3 text-muted">Compare</p>
-                    <ul>
-                      {nav.compare.map((c) => (
-                        <li key={c.href}>
-                          <Link href={c.href} onClick={() => setOpen(null)} className="block rounded-lg px-3 py-2.5 text-[15px] font-semibold text-ink hover:bg-paper">
-                            {c.name}
-                          </Link>
-                        </li>
-                      ))}
                     </ul>
                   </div>
                   <div className="rounded-xl bg-paper p-6">

@@ -1,12 +1,5 @@
-import Image from "next/image";
 import type { Metadata } from "next";
-import {
-  ArrowLeft,
-  ExternalLink,
-  FileText,
-  Mail,
-  ShieldCheck,
-} from "lucide-react";
+import { LegalPage } from "../../components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions | AcadoAI",
@@ -172,147 +165,24 @@ const highlights = [
 
 export default function TermsAndConditionsPage() {
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
-      <header className="border-b border-slate-200 bg-white/95">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
-          <a href="/" className="flex min-w-0 items-center">
-            <Image src="/images/acado-edu-sys.svg" alt="AcadoAI Education Management" width={220} height={56} priority className="h-12 w-auto max-w-[180px] object-contain sm:h-14 sm:max-w-[220px]" />
-          </a>
-          <a
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 hover:text-blue-700"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back Home
-          </a>
-        </div>
-      </header>
-
-      <main>
-        <section className="relative overflow-hidden bg-slate-950 py-16 text-white sm:py-20">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(37,99,235,0.34),transparent_28%),radial-gradient(circle_at_86%_24%,rgba(16,185,129,0.2),transparent_24%),linear-gradient(180deg,#020617_0%,#0f172a_100%)]" />
-          <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:56px_56px]" />
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl">
-              <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-bold text-blue-100 backdrop-blur">
-                <FileText className="h-4 w-4" />
-                Legal Information
-              </span>
-              <h1 className="text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
-                Terms and Conditions
-              </h1>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
-                Please read these Terms carefully before using AcadoAI. They
-                explain the rules for accessing our education management
-                platform, AI tools, portals, website, and mobile applications.
-              </p>
-              <p className="mt-5 text-sm font-bold text-blue-100">
-                Last updated: {lastUpdated}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-slate-50 py-10">
-          <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
-            {highlights.map((highlight) => (
-              <div
-                key={highlight}
-                className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
-              >
-                <ShieldCheck className="mb-3 h-5 w-5 text-blue-700" />
-                <p className="text-sm font-semibold leading-6 text-slate-700">
-                  {highlight}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-14 sm:py-20">
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[280px_1fr] lg:px-8">
-            <aside className="lg:sticky lg:top-8 lg:self-start">
-              <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                <h2 className="text-sm font-black uppercase text-slate-500">
-                  On This Page
-                </h2>
-                <nav className="mt-4 space-y-2">
-                  {sections.map((section) => (
-                    <a
-                      key={section.title}
-                      href={`#${section.title
-                        .toLowerCase()
-                        .replace(/[^a-z0-9]+/g, "-")
-                        .replace(/(^-|-$)/g, "")}`}
-                      className="block rounded-md px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-blue-50 hover:text-blue-700"
-                    >
-                      {section.title.replace(/^\d+\.\s*/, "")}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-            </aside>
-
-            <div className="space-y-8">
-              <div className="rounded-lg border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
-                These Terms are provided for product and app store publication
-                purposes and should be reviewed by a qualified legal
-                professional for your company, jurisdiction, and final business
-                policies.
-              </div>
-
-              {sections.map((section) => {
-                const id = section.title
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, "-")
-                  .replace(/(^-|-$)/g, "");
-
-                return (
-                  <article
-                    key={section.title}
-                    id={id}
-                    className="scroll-mt-8 rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
-                  >
-                    <h2 className="text-2xl font-black leading-tight text-slate-950">
-                      {section.title}
-                    </h2>
-                    <div className="mt-5 space-y-4">
-                      {section.body.map((paragraph) => (
-                        <p
-                          key={paragraph}
-                          className="text-base leading-8 text-slate-600"
-                        >
-                          {paragraph}
-                        </p>
-                      ))}
-                    </div>
-                  </article>
-                );
-              })}
-
-              <div className="rounded-lg border border-slate-200 bg-slate-950 p-6 text-white shadow-sm sm:p-8">
-                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <h2 className="text-2xl font-black">Need Help?</h2>
-                    <p className="mt-2 text-sm leading-6 text-slate-300">
-                      Contact AcadoAI for account, app store, data, or legal
-                      questions.
-                    </p>
-                  </div>
-                  <a
-                    href="mailto:support@acadoai.com"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
-                  >
-                    <Mail className="h-4 w-4" />
-                    support@acadoai.com
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+    <LegalPage
+      path="/terms-and-conditions"
+      crumb="Terms & Conditions"
+      eyebrow="Legal"
+      title="Terms and Conditions"
+      lead="Please read these Terms carefully before using AcadoAI. They explain the rules for our platform, AI tools, portals, website, and mobile applications."
+      lastUpdated={lastUpdated}
+      highlights={highlights}
+      notice={{
+        tone: "warn",
+        text: "These Terms are provided for product and app store publication purposes and should be reviewed by a qualified legal professional for your company, jurisdiction, and final business policies.",
+      }}
+      sections={sections}
+      contact={{
+        title: "Need help?",
+        text: "Contact AcadoAI for account, app store, data, or legal questions.",
+        href: "mailto:support@acadoai.com",
+      }}
+    />
   );
 }

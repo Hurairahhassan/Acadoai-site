@@ -20,9 +20,11 @@ export const site = {
     "AI teaching tools",
     "AI tutor for students",
   ],
-  demoUrl: process.env.NEXT_PUBLIC_CALENDLY_URL || "/contact",
+  demoUrl: process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com/acadoai/acadoa-demo",
   email: "info@acadoai.com",
   supportEmail: "support@acadoai.com",
+  playStoreUrl: "https://play.google.com/store/apps/details?id=com.acadoai.acadoai_mobile",
+  appStoreUrl: "https://apps.apple.com/us/app/acadoai/id6801887949",
   phone: "+92 313 1204236",
   phoneHref: "tel:+923131204236",
   // Comma-separated profile URLs, e.g. https://www.linkedin.com/company/acadoai
@@ -51,6 +53,10 @@ export const productFacts = [
 ];
 
 export type IconName =
+  | "database"
+  | "server"
+  | "key"
+  | "lock"
   | "users"
   | "calendar"
   | "check"
@@ -371,7 +377,7 @@ export const features: Feature[] = [
       "Saved conversation history",
       "One-click navigation to the right page",
       "Live finance and attendance dashboard",
-      "Organisation-scoped data access",
+      "Dedicated database per institution",
     ],
   },
   {
@@ -585,63 +591,6 @@ export const solutions: Solution[] = [
   },
 ];
 
-export type Competitor = {
-  slug: string;
-  name: string;
-  seoDescription: string;
-  about: string;
-  chooseThem: string;
-  chooseUs: string;
-};
-
-// Keep these factual and fair; review before publishing.
-export const competitors: Competitor[] = [
-  {
-    slug: "powerschool",
-    name: "PowerSchool",
-    seoDescription:
-      "Comparing AcadoAI and PowerSchool? See how an AI-first education management platform compares with an established K-12 student information system.",
-    about: "PowerSchool is a mature K-12 student information system with compliance reporting, scheduling, gradebook, portals and a broad integration ecosystem.",
-    chooseThem: "you are a large district that needs deep state reporting and an established SIS ecosystem.",
-    chooseUs: "you want records, finance, teaching tools, communication and AI for every role in one platform.",
-  },
-  {
-    slug: "teachmint",
-    name: "Teachmint",
-    seoDescription:
-      "AcadoAI vs Teachmint: compare AI capabilities, fee automation and teaching tools for institutions choosing an education management platform.",
-    about: "Teachmint is an integrated school platform covering LMS, assessments, fee management, SIS, admissions and classroom hardware.",
-    chooseThem: "your priority is connected classroom hardware alongside school management.",
-    chooseUs: "you want AI across every role: Ask Your Data for leaders, content generation for teachers and a 3D voice tutor for students.",
-  },
-  {
-    slug: "blackbaud",
-    name: "Blackbaud",
-    seoDescription:
-      "AcadoAI vs Blackbaud for schools: compare an AI-first education management platform with Blackbaud's private-school suite.",
-    about: "Blackbaud offers a broad private-school suite covering admissions, business office, teachers, students, families, fundraising, tuition, SIS and LMS.",
-    chooseThem: "you are a large independent school with a heavy fundraising and advancement focus.",
-    chooseUs: "you want a lighter platform with automated fee challans, module-level staff permissions and AI assistance for every role.",
-  },
-  {
-    slug: "veracross",
-    name: "Veracross",
-    seoDescription:
-      "AcadoAI vs Veracross: compare student information systems for private and independent schools, including AI features and finance workflows.",
-    about: "Veracross is a student information system for private and independent K-12 schools with a single unified database.",
-    chooseThem: "you are a North American independent school wanting a long-established SIS partner.",
-    chooseUs: "you want AI built into daily work, automated challans with verifiable receipts and mobile workspaces for every role.",
-  },
-];
-
-export const acadoStrengths = [
-  "AI for every role: Ask Your Data, lesson and quiz generation, subject assistants and a 3D voice tutor",
-  "Automated fee challans, partial and multi-month payments and QR-verifiable receipts",
-  "26 admin modules you can delegate to principals, managers and accountants",
-  "Students who need attention flagged to admins, teachers and parents",
-  "Web portal plus admin, teacher and student mobile workspaces",
-];
-
 export const personas = [
   {
     id: "leaders",
@@ -709,26 +658,26 @@ export const aiWorkflows = [
   {
     title: "Ask Your Data",
     text: "Leaders ask \"Show outstanding fees by class for this month\" and get the table, a chart and a PDF report, scoped to their own institution.",
-    mock: "askdata" as MockName,
-    screen: "/images/screens/ask-your-data.png",
+    screen: "/images/ai/ask-your-data-v2.png",
+    alt: "An elevated over-the-shoulder view of a principal using AcadoAI Ask Your Data to review fees by class",
   },
   {
     title: "AI teaching assistant",
     text: "Teachers draft lesson plans, assignments with rubrics, quizzes and editable slide decks, then review them before class.",
-    mock: "lesson" as MockName,
-    screen: "/images/screens/ai-teaching-tools.png",
+    screen: "/images/ai/ai-teaching-assistant.png",
+    alt: "An elevated over-the-shoulder view of a female teacher preparing a science lesson with AcadoAI AI teaching assistant",
   },
   {
     title: "Study tools from any document",
     text: "NoteBookLM turns a chapter or notes into a grounded chat, summary, flashcards, quizzes, mind maps and audio overviews.",
-    mock: "flashcards" as MockName,
-    screen: "/images/screens/notebooklm.png",
+    screen: "/images/ai/document-study-tools-v3.png",
+    alt: "A boy and girl studying biology flashcards together using AcadoAI document study tools, viewed from above and behind",
   },
   {
     title: "3D voice tutor",
     text: "Students talk to Sara or James, in English or everyday Urdu, while the tutor works through equations and diagrams on a visual board.",
-    mock: "tutor" as MockName,
-    screen: "/images/screens/3d-tutor.png",
+    screen: "/images/ai/3d-voice-tutor-v3.png",
+    alt: "A boy and girl learning mathematics together with the AcadoAI 3D voice tutor, viewed from above and behind",
   },
 ];
 
@@ -794,14 +743,13 @@ export const plans = [
 ];
 
 export const securityPoints = [
-  { icon: "building" as IconName, title: "Organisation-scoped data", text: "Records and AI queries are scoped to your institution, so no other organisation can reach them." },
-  { icon: "shield" as IconName, title: "Role and module permissions", text: "Workspaces by role, delegated modules and checks at both screen and server." },
-  { icon: "check" as IconName, title: "Audit trails", text: "Permission changes, approvals and finance corrections are recorded with who, what and when." },
-  { icon: "zap" as IconName, title: "Secure sessions and files", text: "Token-based sessions, encrypted mobile refresh tokens and time-limited links to private files." },
+  { icon: "database" as IconName, title: "Your own database", text: "No shared databases. Your institution's data is stored in its own dedicated database, fully isolated from every other school." },
+  { icon: "server" as IconName, title: "Dedicated cloud server", text: "Each institution runs on its own secure cloud server with independent access control." },
+  { icon: "key" as IconName, title: "You own your data", text: "The institution owner has complete control: export, manage or delete your data at any time." },
+  { icon: "lock" as IconName, title: "Enterprise-grade security", text: "Encrypted data transfer, secure sessions, role and module permissions, and audit trails for every change." },
 ];
 
 export const nav = {
   product: features.map((f) => ({ name: f.name, href: `/features/${f.slug}`, summary: f.summary, icon: f.icon })),
   solutions: solutions.map((s) => ({ name: s.name, href: `/solutions/${s.slug}`, icon: s.icon })),
-  compare: competitors.map((c) => ({ name: `AcadoAI vs ${c.name}`, href: `/compare/${c.slug}` })),
 };

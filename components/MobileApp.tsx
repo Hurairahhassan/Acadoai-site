@@ -1,6 +1,6 @@
+import Image from "next/image";
 import { IconTile } from "./icons";
 import { Float, Reveal, Stagger, StaggerItem } from "./motion";
-import { Mock } from "./mocks";
 import { ButtonLink, SectionHeader } from "./ui";
 
 const sides = [
@@ -39,8 +39,17 @@ export const MobileApp = () => (
       </div>
       <div className="relative flex justify-center">
         <div aria-hidden className="absolute top-1/2 left-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky/60 blur-3xl" />
-        <Float distance={12}>
-          <Mock name="phone" />
+        <Float distance={12} className="w-full max-w-[280px]">
+          <div className="rounded-[2.75rem] bg-night p-2.5 shadow-[0_40px_80px_-25px_rgba(11,24,81,0.5)] ring-1 ring-white/40">
+            <Image
+              src="/images/photos/mobile_scr.jpeg"
+              alt="Actual AcadoAI mobile app sign-in screen"
+              width={709}
+              height={1600}
+              sizes="280px"
+              className="block h-auto w-full rounded-[2.125rem]"
+            />
+          </div>
         </Float>
       </div>
     </div>

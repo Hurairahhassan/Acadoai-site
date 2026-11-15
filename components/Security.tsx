@@ -7,7 +7,7 @@ export const Security = () => (
   <section id="security" className="bg-white py-28">
     <div className="container-x">
       <Reveal>
-        <SectionHeader center eyebrow="Security & privacy" title="Student data deserves more than a checkbox." lead="Built-in boundaries keep each institution's data, roles and files where they belong." />
+        <SectionHeader center eyebrow="Security & privacy" title={<>Your data. <span className="text-royal">Your control.</span></>} lead="Every institution on AcadoAI gets its own dedicated database and server, completely separate from other schools. Your data belongs to you, not us." />
       </Reveal>
       <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {securityPoints.map((s) => (

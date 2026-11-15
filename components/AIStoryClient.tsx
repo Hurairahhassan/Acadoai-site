@@ -11,7 +11,7 @@ function Step({ index, title, text, active, onActive }: { index: number; title: 
   }, [inView, onActive]);
 
   return (
-    <li ref={ref} className="lg:flex lg:min-h-[60vh] lg:items-center first:lg:min-h-[45vh] first:lg:items-start first:lg:pt-[12vh] last:lg:min-h-[50vh]">
+    <li ref={ref} className="lg:flex lg:min-h-[70vh] lg:items-center lg:py-12">
       <div className={`border-l-2 pl-6 transition-colors duration-500 ${active ? "border-sky" : "border-white/15"}`}>
         <span className="font-mono text-sm text-sky">0{index + 1}</span>
         <h3 className={`mt-2 text-3xl font-semibold transition-colors duration-500 sm:text-4xl ${active ? "text-white" : "text-white/40"}`}>{title}</h3>
@@ -28,13 +28,13 @@ export function AIStoryClient({ steps, screens }: { steps: { title: string; text
   return (
     <>
       {/* Desktop: sticky screenshot, text scrolls */}
-      <div className="mt-8 hidden gap-16 lg:grid lg:grid-cols-[0.8fr_1.2fr]">
+      <div className="mt-8 hidden gap-12 lg:grid lg:grid-cols-[0.85fr_1.15fr] xl:gap-16">
         <ol>
           {steps.map((s, i) => (
             <Step key={s.title} index={i} {...s} active={i === active} onActive={() => setActive(i)} />
           ))}
         </ol>
-        <div className="sticky top-[10vh] flex h-[80vh] items-center">
+        <div className="sticky top-[15vh] flex h-[70vh] items-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={active}

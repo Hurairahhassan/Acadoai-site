@@ -1,7 +1,6 @@
 import { Access } from "../components/Access";
 import { AIWorkflows } from "../components/AIWorkflows";
 import { Automation } from "../components/Automation";
-import { CompetitorComparison } from "../components/CompetitorComparison";
 import { Contact } from "../components/Contact";
 import { FAQ } from "../components/FAQ";
 import { Footer } from "../components/Footer";
@@ -13,6 +12,7 @@ import { Navbar } from "../components/Navbar";
 import { PersonaTabs } from "../components/PersonaTabs";
 import { Security } from "../components/Security";
 import { Stats } from "../components/Stats";
+import { Testimonials } from "../components/Testimonials";
 import { JsonLd } from "../components/ui";
 import { softwareLd } from "./seo";
 
@@ -32,7 +32,7 @@ export default function Home() {
         <Access />
         <MobileApp />
         <Security />
-        <CompetitorComparison />
+        <Testimonials />
         <FAQ />
         <Contact />
       </main>

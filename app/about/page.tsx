@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "../../components/motion";
 import { PageHero } from "../../components/PageHero";
 import { PageShell } from "../../components/PageShell";
@@ -26,6 +27,19 @@ export default function AboutPage() {
         eyebrow="About AcadoAI"
         title="We build the software we wished our schools had"
         lead="AcadoAI brings administration, teaching, finance and learning into one AI-first platform, so schools can focus on students."
+        visual={
+          <div className="mx-auto w-full max-w-[540px] rounded-[1.75rem] border border-sky/50 bg-white/70 p-2.5 shadow-[0_30px_70px_-30px_rgba(11,24,81,0.35)] sm:p-3">
+            <Image
+              src="/images/about/acadoai-hero.png"
+              alt="AcadoAI branding with a school, open book and connected administration, learning, finance and AI symbols"
+              width={1448}
+              height={1086}
+              priority
+              sizes="(min-width: 640px) 516px, 100vw"
+              className="block h-auto w-full rounded-2xl object-contain"
+            />
+          </div>
+        }
       />
       <section className="bg-white py-28">
         <div className="container-x grid items-center gap-16 lg:grid-cols-2">
@@ -36,7 +50,7 @@ export default function AboutPage() {
               lead="Schools run on dozens of disconnected tools, spreadsheets and phone calls. We replace them with one calm system where AI handles the repetitive work."
             />
           </Reveal>
-          <Photo src="/images/photos/team.jpg" alt="The AcadoAI team" className="aspect-[4/3] rounded-2xl" />
+          <Photo src="/images/photos/mission-learning.png" alt="A teacher spending time on a science activity with a boy and girl in a bright classroom" className="aspect-[4/3] rounded-2xl" />
         </div>
         <div className="container-x mt-24 grid gap-12 sm:grid-cols-3">
           {values.map((v, i) => (

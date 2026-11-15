@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist } from "next/font/google";
+import { CalendlyPopup } from "../components/CalendlyPopup";
+import { OfferPopup } from "../components/OfferPopup";
 import { JsonLd } from "../components/ui";
 import { site } from "../content/pages";
 import "./globals.css";
@@ -87,6 +89,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <JsonLd data={orgLd} />
         {children}
+        <CalendlyPopup />
+        <OfferPopup />
       </body>
     </html>
   );

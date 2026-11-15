@@ -9,6 +9,7 @@ export const PageHero = ({
   title,
   lead,
   visual,
+  visualIsFramed = false,
   children,
 }: {
   crumbs: { name: string; href?: string }[];
@@ -16,6 +17,7 @@ export const PageHero = ({
   title: string;
   lead: string;
   visual?: ReactNode;
+  visualIsFramed?: boolean;
   children?: ReactNode;
 }) => (
   <section className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-24">
@@ -57,12 +59,12 @@ export const PageHero = ({
           </Reveal>
         )}
       </div>
-      {visual && (
+      {visual && (visualIsFramed ? visual : (
         <Float delay={0.5} distance={8} className="relative">
           <div aria-hidden className="absolute top-1/2 left-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 rotate-6 rounded-[2.5rem] bg-gradient-to-br from-sky/60 to-brand/20" />
           <div className="relative">{visual}</div>
         </Float>
-      )}
+      ))}
     </div>
   </section>
 );
