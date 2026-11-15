@@ -1,27 +1,34 @@
-import { FAQ } from "../../components/FAQ";
-import { FeatureGrid } from "../../components/FeatureGrid";
-import { PageHero } from "../../components/PageHero";
-import { PageShell } from "../../components/PageShell";
-import { Pricing } from "../../components/Pricing";
-import { PricingVisual } from "../../components/PricingVisual";
-import { Readiness } from "../../components/Readiness";
-import { Rollout } from "../../components/Rollout";
-import { breadcrumbLd, JsonLd } from "../../components/ui";
-import { pageMeta, softwareLd } from "../seo";
+import { FAQ } from "../../../components/FAQ";
+import { FeatureGrid } from "../../../components/FeatureGrid";
+import { PageHero } from "../../../components/PageHero";
+import { PageShell } from "../../../components/PageShell";
+import { Pricing } from "../../../components/Pricing";
+import { PricingVisual } from "../../../components/PricingVisual";
+import { Readiness } from "../../../components/Readiness";
+import { Rollout } from "../../../components/Rollout";
+import { breadcrumbLd, JsonLd } from "../../../components/ui";
+import { isLocale } from "../../../content/i18n";
+import { getContent } from "../../../content/pages";
+import { setLang } from "../../../content/request";
+import { pageMeta, softwareLd } from "../../seo";
 
-export const metadata = pageMeta({
-  title: "Pricing – Custom School Management Software Packages",
-  description:
-    "No fixed subscription. AcadoAI builds a custom package for each school based on users, modules, storage and server needs, with a 2-month free trial.",
-  path: "/pricing",
-});
+export async function generateMetadata({ params }: PageProps<"/[lang]/pricing">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const c = getContent(lang).ui.pricingPage;
+  return pageMeta({ lang, title: c.metaTitle, description: c.metaDescription, path: "/pricing" });
+}
 
-export default function PricingPage() {
+export default async function PricingPage({ params }: PageProps<"/[lang]/pricing">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) return null;
+  setLang(lang);
+  const { pricingPage: c, common } = getContent(lang).ui;
   return (
     <PageShell>
-      <JsonLd data={softwareLd} />
-      <JsonLd data={breadcrumbLd([{ name: "Pricing", path: "/pricing" }])} />
-      <PageHero crumbs={[{ name: "Pricing" }]} eyebrow="Pricing" title="Flexible pricing, built around your institution" lead="No fixed subscription. We size your complete system to your users and operations, so you only pay for what you need."
+      <JsonLd data={softwareLd(lang)} />
+      <JsonLd data={breadcrumbLd([{ name: common.pricing, path: "/pricing" }])} />
+      <PageHero crumbs={[{ name: common.pricing }]} eyebrow={common.pricing} title={c.title} lead={c.lead}
         visual={<PricingVisual />}
       >
         <span />
@@ -30,7 +37,7 @@ export default function PricingPage() {
       <Pricing />
       <Rollout />
       <Readiness />
-      <FeatureGrid title="Modules you can include" eyebrow="Modules" />
+      <FeatureGrid title={c.modulesTitle} eyebrow={c.modulesEyebrow} />
       <FAQ />
     </PageShell>
   );

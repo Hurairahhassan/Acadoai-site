@@ -18,7 +18,7 @@ export function FAQClient({ items }: { items: { q: string; a: string }[] }) {
                 aria-expanded={isOpen}
                 aria-controls={`faq-${i}`}
                 onClick={() => setOpen(isOpen ? null : i)}
-                className="flex w-full items-center justify-between gap-6 py-6 text-left font-sans text-lg font-semibold tracking-normal text-ink"
+                className="flex w-full items-center justify-between gap-6 py-6 text-start font-sans text-lg font-semibold tracking-normal text-ink"
               >
                 {f.q}
                 <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-line text-royal">

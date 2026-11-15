@@ -84,7 +84,7 @@ export function WordReveal({ text, highlight, className, hlClass = "text-sky" }:
       {text.split(" ").map((word, i) => (
         <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
           <motion.span
-            className={`inline-block ${hl.has(word.toLowerCase().replace(/[^\w-]/g, "")) ? hlClass : ""}`}
+            className={`inline-block ${hl.has(word.toLowerCase().replace(/[^\p{L}\p{M}\p{N}-]/gu, "")) ? hlClass : ""}`}
             initial={reduce ? false : { y: "110%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.9, ease, delay: 0.1 + i * 0.06 }}

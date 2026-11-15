@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "check:i18n": "tsc content/pages.ts --outDir .i18n-check --module commonjs --target es2022 --moduleResolution node --skipLibCheck --esModuleInterop && echo '{\"type\":\"commonjs\"}' > .i18n-check/package.json && node scripts/check-translations.cjs; status=$?; rm -rf .i18n-check; exit $status"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

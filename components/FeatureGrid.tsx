@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { features } from "../content/pages";
+import { href, t } from "../content/request";
 import { IconTile } from "./icons";
 import { Reveal, Stagger, StaggerItem } from "./motion";
 import { SectionHeader } from "./ui";
 
 /** Linked grid of features — used for internal linking across pages. */
-export const FeatureGrid = ({ slugs, title = "Everything connected", eyebrow = "Related features" }: { slugs?: string[]; title?: string; eyebrow?: string }) => {
+export const FeatureGrid = (props: { slugs?: string[]; title?: string; eyebrow?: string }) => {
+  const { features, ui } = t();
+  const { slugs, title = ui.featureGrid.title, eyebrow = ui.featureGrid.eyebrow } = props;
   const list = slugs ? features.filter((f) => slugs.includes(f.slug)) : features;
   return (
     <section className="bg-paper py-28">
@@ -18,11 +20,11 @@ export const FeatureGrid = ({ slugs, title = "Everything connected", eyebrow = "
           {list.map((f) => {
             return (
               <StaggerItem key={f.slug}>
-                <Link href={`/features/${f.slug}`} className="group flex h-full flex-col bg-white p-8 transition-colors duration-300 hover:bg-[#f2f8ff]">
+                <Link href={href(`/features/${f.slug}`)} className="group flex h-full flex-col bg-white p-8 transition-colors duration-300 hover:bg-[#f2f8ff]">
                   <IconTile name={f.icon} />
                   <h3 className="mt-8 text-xl font-semibold text-ink ">{f.name}</h3>
                   <p className="mt-2 flex-1 leading-7 text-muted ">{f.summary}</p>
-                  <ArrowRight className="mt-6 h-5 w-5 text-royal transition-all duration-300 group-hover:translate-x-1" aria-hidden />
+                  <ArrowRight className="mt-6 h-5 w-5 text-royal transition-all duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" aria-hidden />
                 </Link>
               </StaggerItem>
             );

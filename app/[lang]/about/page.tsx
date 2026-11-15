@@ -1,37 +1,39 @@
 import Image from "next/image";
-import { Reveal } from "../../components/motion";
-import { PageHero } from "../../components/PageHero";
-import { PageShell } from "../../components/PageShell";
-import { Security } from "../../components/Security";
-import { breadcrumbLd, JsonLd, Photo, SectionHeader } from "../../components/ui";
-import { pageMeta } from "../seo";
+import { Reveal } from "../../../components/motion";
+import { PageHero } from "../../../components/PageHero";
+import { PageShell } from "../../../components/PageShell";
+import { Security } from "../../../components/Security";
+import { breadcrumbLd, JsonLd, Photo, SectionHeader } from "../../../components/ui";
+import { isLocale } from "../../../content/i18n";
+import { getContent } from "../../../content/pages";
+import { setLang } from "../../../content/request";
+import { pageMeta } from "../../seo";
 
-export const metadata = pageMeta({
-  title: "About AcadoAI – AI-first Education Management",
-  description: "AcadoAI builds AI-first school management software so educators spend less time on administration and more time on teaching.",
-  path: "/about",
-});
+export async function generateMetadata({ params }: PageProps<"/[lang]/about">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const c = getContent(lang).ui.aboutPage;
+  return pageMeta({ lang, title: c.metaTitle, description: c.metaDescription, path: "/about" });
+}
 
-const values = [
-  { title: "Teachers first", text: "Every feature is judged by one question: does it give a teacher time back?" },
-  { title: "AI that earns its place", text: "AI belongs where it removes real work, not as a badge on the box." },
-  { title: "Privacy by design", text: "Each school's data is isolated and only visible to the people who need it." },
-];
-
-export default function AboutPage() {
+export default async function AboutPage({ params }: PageProps<"/[lang]/about">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) return null;
+  setLang(lang);
+  const { aboutPage: c, common } = getContent(lang).ui;
   return (
     <PageShell>
-      <JsonLd data={breadcrumbLd([{ name: "About", path: "/about" }])} />
+      <JsonLd data={breadcrumbLd([{ name: common.about, path: "/about" }])} />
       <PageHero
-        crumbs={[{ name: "About" }]}
-        eyebrow="About AcadoAI"
-        title="We build the software we wished our schools had"
-        lead="AcadoAI brings administration, teaching, finance and learning into one AI-first platform, so schools can focus on students."
+        crumbs={[{ name: common.about }]}
+        eyebrow={c.eyebrow}
+        title={c.title}
+        lead={c.lead}
         visual={
           <div className="mx-auto w-full max-w-[540px] rounded-[1.75rem] border border-sky/50 bg-white/70 p-2.5 shadow-[0_30px_70px_-30px_rgba(11,24,81,0.35)] sm:p-3">
             <Image
               src="/images/about/acadoai-hero.png"
-              alt="AcadoAI branding with a school, open book and connected administration, learning, finance and AI symbols"
+              alt={c.heroAlt}
               width={1448}
               height={1086}
               priority
@@ -45,15 +47,15 @@ export default function AboutPage() {
         <div className="container-x grid items-center gap-16 lg:grid-cols-2">
           <Reveal>
             <SectionHeader
-              eyebrow="Our mission"
-              title="Give every educator back the hours admin takes away."
-              lead="Schools run on dozens of disconnected tools, spreadsheets and phone calls. We replace them with one calm system where AI handles the repetitive work."
+              eyebrow={c.missionEyebrow}
+              title={c.missionTitle}
+              lead={c.missionLead}
             />
           </Reveal>
-          <Photo src="/images/photos/mission-learning.png" alt="A teacher spending time on a science activity with a boy and girl in a bright classroom" className="aspect-[4/3] rounded-2xl" />
+          <Photo src="/images/photos/mission-learning.png" alt={c.missionAlt} className="aspect-[4/3] rounded-2xl" />
         </div>
         <div className="container-x mt-24 grid gap-12 sm:grid-cols-3">
-          {values.map((v, i) => (
+          {c.values.map((v, i) => (
             <Reveal key={v.title} delay={i * 0.08} className="border-t-2 border-ink pt-6">
               <h3 className="text-2xl font-semibold text-ink">{v.title}</h3>
               <p className="mt-3 text-lg leading-8 text-muted">{v.text}</p>

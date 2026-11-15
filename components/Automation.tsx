@@ -1,21 +1,12 @@
 import { Bell, BookOpenCheck, ClipboardList, GraduationCap, ShieldUser, Sparkles, UserRound, Wallet, CalendarCheck } from "lucide-react";
 import type { ReactNode } from "react";
-import { automations } from "../content/pages";
+import { t } from "../content/request";
 import { IconTile } from "./icons";
 import { Reveal, Stagger, StaggerItem } from "./motion";
 import { ButtonLink, SectionHeader } from "./ui";
 
-const inputs = [
-  { icon: CalendarCheck, label: "Attendance" },
-  { icon: BookOpenCheck, label: "Test & exam results" },
-  { icon: ClipboardList, label: "Assignments" },
-  { icon: Wallet, label: "Fee balances" },
-];
-const outputs = [
-  { icon: ShieldUser, label: "Admin alert" },
-  { icon: GraduationCap, label: "Teacher alert" },
-  { icon: UserRound, label: "Parent alert" },
-];
+const inputIcons = [CalendarCheck, BookOpenCheck, ClipboardList, Wallet];
+const outputIcons = [ShieldUser, GraduationCap, UserRound];
 
 const Node = ({ icon: Icon, label, dark = false }: { icon: typeof Bell; label: string; dark?: boolean }) => (
   <li className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold shadow-sm ring-1 ${dark ? "bg-navy text-white ring-navy" : "bg-white text-ink ring-line"}`}>
@@ -30,22 +21,27 @@ const Connector = ({ delay = "0s" }: { delay?: string }): ReactNode => (
     {[0, 0.8, 1.6].map((d) => (
       <span
         key={d}
-        className="absolute left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 animate-flow-y rounded-full bg-royal shadow-[0_0_10px_rgba(42,58,186,0.8)] lg:top-1/2 lg:left-0 lg:animate-flow-x"
+        className="absolute left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 animate-flow-y rounded-full bg-royal shadow-[0_0_10px_rgba(42,58,186,0.8)] lg:top-1/2 lg:left-0 lg:animate-flow-x rtl:lg:[animation-direction:reverse]"
         style={{ animationDelay: `calc(${delay} + ${d}s)` }}
       />
     ))}
   </div>
 );
 
-export const Automation = () => (
+export const Automation = () => {
+  const { automations, ui } = t();
+  const c = ui.automation;
+  const inputs = c.inputs.map((label, i) => ({ icon: inputIcons[i], label }));
+  const outputs = c.outputs.map((label, i) => ({ icon: outputIcons[i], label }));
+  return (
   <section id="automation" className="relative overflow-hidden bg-[linear-gradient(180deg,#eef6ff_0%,#f7f9ff_100%)] py-28">
     <div className="container-x">
       <Reveal>
         <SectionHeader
           center
-          eyebrow="Automation"
-          title="The routine runs itself. You hear about what matters."
-          lead="AcadoAI watches attendance, results, assignments and fees for every student, then alerts the right people when someone needs attention."
+          eyebrow={c.eyebrow}
+          title={c.title}
+          lead={c.lead}
         />
       </Reveal>
 
@@ -62,7 +58,7 @@ export const Automation = () => (
             <div>
               <Sparkles className="mx-auto h-6 w-6 text-sky" aria-hidden />
               <p className="mt-1 font-display text-lg leading-tight font-semibold">AcadoAI</p>
-              <p className="text-[11px] text-sky">tracks & detects</p>
+              <p className="text-[11px] text-sky">{c.engine}</p>
             </div>
           </div>
         </div>
@@ -70,7 +66,7 @@ export const Automation = () => (
         <ul className="mx-auto grid w-full max-w-xs gap-2.5">
           {outputs.map((n) => <Node key={n.label} {...n} dark />)}
           <li className="flex items-center gap-3 rounded-xl border border-dashed border-royal/40 px-4 py-3 text-sm font-semibold text-royal">
-            <Bell className="h-4 w-4" strokeWidth={1.75} aria-hidden /> Assignment & test reminders
+            <Bell className="h-4 w-4" strokeWidth={1.75} aria-hidden /> {c.reminders}
           </li>
         </ul>
       </Reveal>
@@ -95,9 +91,10 @@ export const Automation = () => (
 
       <Reveal className="mt-12 text-center">
         <ButtonLink href="/features/automation-alerts" variant="ghost">
-          How automation works
+          {c.cta}
         </ButtonLink>
       </Reveal>
     </div>
   </section>
-);
+  );
+};

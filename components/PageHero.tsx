@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Float, Magnetic, Reveal, WordReveal } from "./motion";
+import { href, t } from "../content/request";
 import { ButtonLink, DemoButton } from "./ui";
 
 export const PageHero = ({
@@ -19,7 +20,9 @@ export const PageHero = ({
   visual?: ReactNode;
   visualIsFramed?: boolean;
   children?: ReactNode;
-}) => (
+}) => {
+  const { common } = t().ui;
+  return (
   <section className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-24">
     <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,#e4f3ff_0%,#f5f9ff_45%,#eef1ff_100%)]">
       <div className="absolute -top-40 right-[-10%] h-[620px] w-[620px] animate-sweep rounded-full bg-[radial-gradient(closest-side,rgba(144,206,255,0.55),transparent)]" />
@@ -27,15 +30,15 @@ export const PageHero = ({
     </div>
     <div className={`container-x relative grid items-center gap-14 ${visual ? "lg:grid-cols-[1.05fr_0.95fr]" : ""}`}>
       <div className="max-w-3xl">
-        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted">
+        <nav aria-label={common.breadcrumb} className="mb-8 text-sm text-muted">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className="link-underline hover:text-ink">Home</Link>
+              <Link href={href("/")} className="link-underline hover:text-ink">{common.home}</Link>
             </li>
             {crumbs.map((c) => (
               <li key={c.name} className="flex items-center gap-2">
                 <span aria-hidden>/</span>
-                {c.href ? <Link href={c.href} className="link-underline hover:text-ink">{c.name}</Link> : <span aria-current="page" className="font-medium text-ink">{c.name}</span>}
+                {c.href ? <Link href={href(c.href)} className="link-underline hover:text-ink">{c.name}</Link> : <span aria-current="page" className="font-medium text-ink">{c.name}</span>}
               </li>
             ))}
           </ol>
@@ -55,7 +58,7 @@ export const PageHero = ({
             <Magnetic>
               <DemoButton className="w-full px-7 py-4 text-base sm:w-auto" />
             </Magnetic>
-            <ButtonLink href="/pricing" variant="ghost" className="px-7 py-4 text-base">See pricing</ButtonLink>
+            <ButtonLink href="/pricing" variant="ghost" className="px-7 py-4 text-base">{common.seePricing}</ButtonLink>
           </Reveal>
         )}
       </div>
@@ -67,4 +70,5 @@ export const PageHero = ({
       ))}
     </div>
   </section>
-);
+  );
+};

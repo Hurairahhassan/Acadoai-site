@@ -1,9 +1,12 @@
-import { faqs } from "../content/pages";
 import { FAQClient } from "./FAQClient";
 import { Reveal } from "./motion";
+import { t } from "../content/request";
 import { JsonLd, SectionHeader } from "./ui";
 
-export const FAQ = ({ items = faqs }: { items?: { q: string; a: string }[] }) => (
+export const FAQ = ({ items: custom }: { items?: { q: string; a: string }[] }) => {
+  const { faqs, ui } = t();
+  const items = custom ?? faqs;
+  return (
   <section id="faq" className="bg-white py-28">
     <JsonLd
       data={{
@@ -14,9 +17,10 @@ export const FAQ = ({ items = faqs }: { items?: { q: string; a: string }[] }) =>
     />
     <div className="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
       <Reveal>
-        <SectionHeader eyebrow="FAQ" title="Questions institutions ask us" lead="Can't find your answer? Our team replies within one business day." />
+        <SectionHeader eyebrow="FAQ" title={ui.faq.title} lead={ui.faq.lead} />
       </Reveal>
       <FAQClient items={items} />
     </div>
   </section>
-);
+  );
+};

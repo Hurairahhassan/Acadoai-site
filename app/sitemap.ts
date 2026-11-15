@@ -1,23 +1,26 @@
 import type { MetadataRoute } from "next";
+import { languageAlternates, locales, localize } from "../content/i18n";
 import { features, site, solutions } from "../content/pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const entry = (path: string, priority: number, changeFrequency: "weekly" | "monthly" | "yearly" = "monthly") => ({
-    url: `${site.url}${path}`,
-    lastModified: now,
-    changeFrequency,
-    priority,
-  });
+  const abs = (path: string) => `${site.url}${path === "/" ? "" : path}`;
+  // One entry per language, each listing every translation so Google links them as alternates.
+  const localized = (path: string, priority: number, changeFrequency: "weekly" | "monthly" = "monthly") => {
+    const languages = Object.fromEntries(Object.entries(languageAlternates(path)).map(([l, p]) => [l, abs(p)]));
+    return locales.map((lang) => ({ url: abs(localize(lang, path)), lastModified: now, changeFrequency, priority, alternates: { languages } }));
+  };
+  const english = (path: string) => ({ url: abs(path), lastModified: now, changeFrequency: "yearly" as const, priority: 0.2 });
+
   return [
-    entry("", 1, "weekly"),
-    entry("/pricing", 0.9),
-    ...features.map((f) => entry(`/features/${f.slug}`, 0.8)),
-    ...solutions.map((s) => entry(`/solutions/${s.slug}`, 0.8)),
-    entry("/about", 0.5),
-    entry("/contact", 0.6),
-    entry("/privacy-policy", 0.2, "yearly"),
-    entry("/terms-and-conditions", 0.2, "yearly"),
-    entry("/delete-account", 0.2, "yearly"),
+    ...localized("/", 1, "weekly"),
+    ...localized("/pricing", 0.9),
+    ...features.flatMap((f) => localized(`/features/${f.slug}`, 0.8)),
+    ...solutions.flatMap((s) => localized(`/solutions/${s.slug}`, 0.8)),
+    ...localized("/about", 0.5),
+    ...localized("/contact", 0.6),
+    english("/privacy-policy"),
+    english("/terms-and-conditions"),
+    english("/delete-account"),
   ];
 }

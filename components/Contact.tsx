@@ -2,9 +2,10 @@
 
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import React, { useRef, useState } from "react";
+import type React from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, CalendarCheck, Check, Mail, Phone, X } from "lucide-react";
-import { site } from "../content/pages";
+import { fill, site, type Content } from "../content/pages";
 import { Reveal } from "./motion";
 
 type ContactFormState = {
@@ -17,11 +18,6 @@ const initialState: ContactFormState = {
   message: "",
 };
 
-const contactLinks = [
-  { icon: Mail, title: "Sales", value: site.email, href: `mailto:${site.email}` },
-  { icon: Mail, title: "Support", value: site.supportEmail, href: `mailto:${site.supportEmail}` },
-  { icon: Phone, title: "Phone", value: site.phone, href: site.phoneHref },
-];
 
 const inputClass =
   "w-full rounded-lg border border-line bg-white px-4 py-3 text-ink outline-none transition placeholder:text-muted/60 focus:border-royal focus:ring-4 focus:ring-sky/40";
@@ -36,7 +32,12 @@ export const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(
 // 7–15 digits, optional leading +, spaces/dashes/brackets allowed
 export const isValidPhone = (v: string) => /^\+?[\d\s\-()]+$/.test(v) && (v.match(/\d/g)?.length ?? 0) >= 7 && (v.match(/\d/g)?.length ?? 0) <= 15;
 
-export const Contact: React.FC = () => {
+export const Contact = ({ copy: c }: { copy: Content["ui"]["contact"] }) => {
+  const contactLinks = [
+    { icon: Mail, title: c.sales, value: site.email, href: `mailto:${site.email}` },
+    { icon: Mail, title: c.support, value: site.supportEmail, href: `mailto:${site.supportEmail}` },
+    { icon: Phone, title: c.phone, value: site.phone, href: site.phoneHref },
+  ];
   const [state, setState] = useState<ContactFormState>(initialState);
   const [isPending, setIsPending] = useState(false);
   const [sent, setSent] = useState<{ name: string; org: string; email: string } | null>(null);
@@ -62,16 +63,16 @@ export const Contact: React.FC = () => {
     if (!firstName || !lastName || !email || !phone || !organization || !institutionType) {
       setState({
         status: "error",
-        message: "Please fill in your name, email, mobile number and organization name.",
+        message: c.errRequired,
       });
       return;
     }
     if (!isValidEmail(email)) {
-      setState({ status: "error", message: "Please enter a valid email address." });
+      setState({ status: "error", message: c.errEmail });
       return;
     }
     if (!isValidPhone(phone)) {
-      setState({ status: "error", message: "Please enter a valid mobile number, e.g. +92 300 1234567." });
+      setState({ status: "error", message: c.errPhone });
       return;
     }
 
@@ -82,7 +83,7 @@ export const Contact: React.FC = () => {
     if (!serviceId || !templateId || !publicKey) {
       setState({
         status: "error",
-        message: "Email service is not configured yet. Please try again later.",
+        message: c.errConfig,
       });
       return;
     }
@@ -122,7 +123,7 @@ export const Contact: React.FC = () => {
       console.error("EmailJS submission failed:", error);
       setState({
         status: "error",
-        message: `We couldn't send your request right now. Please try again, or email us at ${site.email}.`,
+        message: fill(c.errSend, { email: site.email }),
       });
     } finally {
       setIsPending(false);
@@ -133,19 +134,17 @@ export const Contact: React.FC = () => {
     <section id="contact" className="bg-paper py-28">
       <div className="container-x grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
-          <p className="eyebrow mb-4 inline-flex items-center gap-2 text-royal"><span className="h-px w-6 bg-royal" aria-hidden />Book a demo</p>
-          <h2 className="text-4xl leading-[1.05] font-semibold text-ink sm:text-5xl">Tell us about your institution. We&apos;ll show you the rest.</h2>
-          <p className="mt-5 max-w-lg text-lg leading-8 text-muted">
-            Share a few details and we&apos;ll reply within one business day with a tailored walkthrough of AcadoAI.
-          </p>
+          <p className="eyebrow mb-4 inline-flex items-center gap-2 text-royal"><span className="h-px w-6 bg-royal" aria-hidden />{c.eyebrow}</p>
+          <h2 className="text-4xl leading-[1.05] font-semibold text-ink sm:text-5xl">{c.title}</h2>
+          <p className="mt-5 max-w-lg text-lg leading-8 text-muted">{c.lead}</p>
           <ul className="mt-12 space-y-1">
             {contactLinks.map(({ icon: Icon, title, value, href }) => (
               <li key={title}>
                 <a href={href} className="group flex items-center gap-4 border-b border-line py-4">
                   <span className="grid h-9 w-9 place-items-center rounded-lg bg-white text-royal ring-1 ring-line"><Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden /></span>
                   <span className="w-20 text-sm text-muted">{title}</span>
-                  <span className="font-semibold text-ink">{value}</span>
-                  <ArrowRight className="ml-auto h-4 w-4 text-royal opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" aria-hidden />
+                  <span dir="ltr" className="font-semibold text-ink">{value}</span>
+                  <ArrowRight className="ms-auto h-4 w-4 text-royal opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" aria-hidden />
                 </a>
               </li>
             ))}
@@ -156,42 +155,44 @@ export const Contact: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-5 rounded-[1.75rem] bg-white p-6 shadow-[0_40px_80px_-50px_rgba(11,24,81,0.5)] ring-1 ring-line sm:p-10">
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="firstName" className={labelClass}>First name<Req /></label>
+                <label htmlFor="firstName" className={labelClass}>{c.firstName}<Req /></label>
                 <input id="firstName" name="firstName" type="text" autoComplete="given-name" className={inputClass} required />
               </div>
               <div>
-                <label htmlFor="lastName" className={labelClass}>Last name<Req /></label>
+                <label htmlFor="lastName" className={labelClass}>{c.lastName}<Req /></label>
                 <input id="lastName" name="lastName" type="text" autoComplete="family-name" className={inputClass} required />
               </div>
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="email" className={labelClass}>Email<Req /></label>
+                <label htmlFor="email" className={labelClass}>{c.email}<Req /></label>
                 <input id="email" name="email" type="email" autoComplete="email" className={inputClass} placeholder="you@institution.edu" required />
               </div>
               <div>
-                <label htmlFor="phone" className={labelClass}>Mobile number<Req /></label>
+                <label htmlFor="phone" className={labelClass}>{c.mobile}<Req /></label>
                 <input id="phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" className={inputClass} placeholder="+92 300 1234567" required />
               </div>
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="organization" className={labelClass}>Organization name<Req /></label>
+                <label htmlFor="organization" className={labelClass}>{c.organization}<Req /></label>
                 <input id="organization" name="organization" type="text" autoComplete="organization" className={inputClass} required />
               </div>
               <div>
-                <label htmlFor="institutionType" className={labelClass}>Institution type<Req /></label>
+                <label htmlFor="institutionType" className={labelClass}>{c.institutionType}<Req /></label>
                 <select id="institutionType" name="institutionType" className={inputClass} required>
-                  <option>School (K-12)</option>
-                  <option>College</option>
-                  <option>University</option>
-                  <option>Coaching Centre / Academy</option>
+                  {/* The email keeps the English value so the sales team can read every request. */}
+                  {["School (K-12)", "College", "University", "Coaching Centre / Academy"].map((value, i) => (
+                    <option key={value} value={value}>
+                      {c.types[i]}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
             <div>
-              <label htmlFor="message" className={labelClass}>What would you like to see? <span className="font-normal text-muted">(optional)</span></label>
-              <textarea id="message" name="message" rows={3} className={inputClass} placeholder="Number of students, campuses, current software…" />
+              <label htmlFor="message" className={labelClass}>{c.message} <span className="font-normal text-muted">{c.optional}</span></label>
+              <textarea id="message" name="message" rows={3} className={inputClass} placeholder={c.messagePlaceholder} />
             </div>
 
             {state.status === "error" && (
@@ -210,8 +211,8 @@ export const Contact: React.FC = () => {
               disabled={isPending}
               className="group flex w-full items-center justify-center gap-2 rounded-xl bg-royal py-4 font-semibold text-white transition-colors hover:bg-brand disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {isPending ? "Sending…" : "Request my demo"}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
+              {isPending ? c.sending : c.submit}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" aria-hidden />
             </button>
           </form>
         </Reveal>
@@ -241,27 +242,23 @@ export const Contact: React.FC = () => {
               >
                 <Check className="h-8 w-8" strokeWidth={2.5} aria-hidden />
               </motion.span>
-              <h3 id="sent-title" className="mt-6 text-3xl font-semibold">Thank you, {sent.name}!</h3>
-              <p className="mt-3 leading-7 text-muted">
-                Your demo request for <b className="text-ink">{sent.org}</b> has been received. Our team will contact you within one business day.
-              </p>
+              <h3 id="sent-title" className="mt-6 text-3xl font-semibold">{fill(c.thanks, { name: sent.name })}</h3>
+              <p className="mt-3 leading-7 text-muted">{fill(c.received, { org: sent.org })}</p>
             </div>
             <div className="space-y-3 px-8 py-7">
-              <p className="text-sm text-muted">
-                A confirmation is on its way to <b className="text-ink">{sent.email}</b>.
-              </p>
+              <p className="text-sm text-muted">{fill(c.confirmation, { email: sent.email })}</p>
               <a
                 href={site.demoUrl}
                 onClick={closeDialog}
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-royal py-3.5 font-semibold text-white transition-colors hover:bg-brand"
               >
-                <CalendarCheck className="h-4 w-4" aria-hidden /> Pick a demo time now
+                <CalendarCheck className="h-4 w-4" aria-hidden /> {c.pickTime}
               </a>
               <button type="button" onClick={closeDialog} className="w-full rounded-xl py-3 font-semibold text-ink ring-1 ring-line transition-colors hover:bg-paper">
-                Close
+                {c.close}
               </button>
             </div>
-            <button type="button" onClick={closeDialog} aria-label="Close" className="absolute top-4 right-4 grid h-9 w-9 place-items-center rounded-full bg-white/80 text-ink hover:bg-white">
+            <button type="button" onClick={closeDialog} aria-label={c.close} className="absolute top-4 end-4 grid h-9 w-9 place-items-center rounded-full bg-white/80 text-ink hover:bg-white">
               <X className="h-4 w-4" aria-hidden />
             </button>
           </motion.div>

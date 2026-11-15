@@ -1,13 +1,17 @@
 import { Check } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "./motion";
+import { fill } from "../content/pages";
+import { t } from "../content/request";
 import { SectionHeader } from "./ui";
 
-export const Capabilities = ({ name, items }: { name: string; items: string[] }) => (
+export const Capabilities = ({ name, items }: { name: string; items: string[] }) => {
+  const c = t().ui.featurePage;
+  return (
   <section className="bg-white pb-28">
     <div className="container-x">
       <div className="rounded-[2rem] bg-[linear-gradient(160deg,#e6f3ff,#f3f5ff)] p-8 sm:p-14">
         <Reveal>
-          <SectionHeader eyebrow="Capabilities" title={`Inside ${name}`} />
+          <SectionHeader eyebrow={c.capabilities} title={fill(c.inside, { name })} />
         </Reveal>
         <Stagger className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" gap={0.04}>
           {items.map((c) => (
@@ -22,4 +26,5 @@ export const Capabilities = ({ name, items }: { name: string; items: string[] })
       </div>
     </div>
   </section>
-);
+  );
+};

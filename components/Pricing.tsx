@@ -1,10 +1,14 @@
 import { Check } from "lucide-react";
-import { pricingFactors, pricingIncludes, pricingSteps, site } from "../content/pages";
+import { site } from "../content/pages";
+import { t } from "../content/request";
 import { IconTile } from "./icons";
 import { Reveal, Stagger, StaggerItem } from "./motion";
 import { ButtonLink, SectionHeader } from "./ui";
 
-export const Pricing = () => (
+export const Pricing = () => {
+  const { pricingFactors, pricingIncludes, pricingSteps, ui } = t();
+  const c = ui.pricing;
+  return (
   <section id="pricing" className="bg-white pb-28">
     <div className="container-x">
       <ol className="grid gap-6 lg:grid-cols-3">
@@ -18,7 +22,7 @@ export const Pricing = () => (
       </ol>
 
       <Reveal className="mt-24">
-        <SectionHeader eyebrow="What shapes your price" title="You pay for what your institution uses." lead="No fixed monthly tiers. Your package is built from these five things." />
+        <SectionHeader eyebrow={c.factorsEyebrow} title={c.factorsTitle} lead={c.factorsLead} />
       </Reveal>
       <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
         {pricingFactors.map((f) => (
@@ -32,7 +36,7 @@ export const Pricing = () => (
 
       <Reveal className="mt-20 grid gap-10 rounded-3xl bg-navy p-8 text-white shadow-[0_40px_80px_-40px_rgba(4,14,69,0.8)] sm:p-12 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
-          <p className="eyebrow text-sky">Every package includes</p>
+          <p className="eyebrow text-sky">{c.includes}</p>
           <ul className="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
             {pricingIncludes.map((item) => (
               <li key={item} className="flex gap-3 text-lg">
@@ -43,13 +47,14 @@ export const Pricing = () => (
         </div>
         <div className="flex flex-col gap-3 lg:w-64">
           <ButtonLink href={site.demoUrl} variant="sky" className="w-full py-4">
-            Get your custom quote
+            {c.quote}
           </ButtonLink>
           <ButtonLink href="/contact" variant="ghostDark" className="w-full py-4">
-            Talk to sales
+            {c.talk}
           </ButtonLink>
         </div>
       </Reveal>
     </div>
   </section>
-);
+  );
+};

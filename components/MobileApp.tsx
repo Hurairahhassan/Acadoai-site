@@ -1,23 +1,23 @@
 import Image from "next/image";
 import { IconTile } from "./icons";
 import { Float, Reveal, Stagger, StaggerItem } from "./motion";
+import { t } from "../content/request";
 import { ButtonLink, SectionHeader } from "./ui";
 
-const sides = [
-  { icon: "building" as const, title: "Admin", text: "Dashboard, approvals, attendance, finance, QR receipt verification and Ask Your Data." },
-  { icon: "graduation" as const, title: "Teacher", text: "Today's classes, topic planning with video, attendance, tests and marks." },
-  { icon: "book" as const, title: "Student", text: "Timetable, courses, assignments, tests, results, fees and payment proof." },
-];
+const sideIcons = ["building", "graduation", "book"] as const;
 
-export const MobileApp = () => (
+export const MobileApp = () => {
+  const c = t().ui.mobile;
+  const sides = c.sides.map((side, i) => ({ ...side, icon: sideIcons[i] }));
+  return (
   <section id="mobile" className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f9ff,#e9f4ff)] py-28">
     <div className="container-x grid items-center gap-16 lg:grid-cols-[1fr_0.9fr]">
       <div>
         <Reveal>
           <SectionHeader
-            eyebrow="Mobile app"
-            title="Keep education work within reach."
-            lead="Native mobile workspaces for admins, teachers and students, signed in with a school code and running on the same secure data as the web portal."
+            eyebrow={c.eyebrow}
+            title={c.title}
+            lead={c.lead}
           />
         </Reveal>
         <Stagger className="mt-10 space-y-4">
@@ -33,7 +33,7 @@ export const MobileApp = () => (
         </Stagger>
         <Reveal className="mt-10">
           <ButtonLink href="/features/mobile-app" variant="ghost">
-            Mobile app
+            {c.cta}
           </ButtonLink>
         </Reveal>
       </div>
@@ -43,7 +43,7 @@ export const MobileApp = () => (
           <div className="rounded-[2.75rem] bg-night p-2.5 shadow-[0_40px_80px_-25px_rgba(11,24,81,0.5)] ring-1 ring-white/40">
             <Image
               src="/images/photos/mobile_scr.jpeg"
-              alt="Actual AcadoAI mobile app sign-in screen"
+              alt={c.imageAlt}
               width={709}
               height={1600}
               sizes="280px"
@@ -54,4 +54,5 @@ export const MobileApp = () => (
       </div>
     </div>
   </section>
-);
+  );
+};

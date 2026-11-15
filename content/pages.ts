@@ -1,13 +1,17 @@
 // Single source of truth for site copy, SEO metadata and page data.
 // Product facts follow ACADOAI_PRODUCT_FUNCTIONALITY_RBAC_MARKETING.md — keep claims inside what that reference verifies.
 // Screenshots: drop files at the `screen` paths under /public and they replace the illustrations automatically.
+// Translations live in content/locales/*.ts and override text only; see getContent() at the bottom.
+
+import type { Locale } from "./i18n";
+import ar from "./locales/ar";
+import es from "./locales/es";
+import ur from "./locales/ur";
 
 export const site = {
   name: "AcadoAI",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.acadoai.com").replace(/\/$/, ""),
-  title: "AcadoAI – AI-Powered Education Management Software",
-  description:
-    "AI-powered education management software for schools, colleges and academies: fees, attendance, exams, staff, parent messaging and AI teaching tools.",
+  // Title and description live in ui.meta so they can be translated.
   keywords: [
     "education management software",
     "education ERP",
@@ -38,7 +42,7 @@ export const site = {
 export const isExternal = (href: string) => href.startsWith("http");
 
 // Customer numbers: shown only when NEXT_PUBLIC_SHOW_STATS=true and the values are verified.
-export const stats = [
+const stats = [
   { value: process.env.NEXT_PUBLIC_STATS_1_VALUE ?? "", label: "Institutions onboarded" },
   { value: process.env.NEXT_PUBLIC_STATS_2_VALUE ?? "", label: "Students managed" },
   { value: process.env.NEXT_PUBLIC_STATS_4_VALUE ?? "", label: "Countries" },
@@ -46,7 +50,7 @@ export const stats = [
 export const showStats = process.env.NEXT_PUBLIC_SHOW_STATS === "true";
 
 // Product facts (verified in the product reference), safe to publish.
-export const productFacts = [
+const productFacts = [
   { value: "26", label: "Admin modules you can delegate, one by one" },
   { value: "6", label: "Question types for online and paper tests" },
   { value: "8+", label: "Subject-specific AI assistants for students" },
@@ -592,7 +596,7 @@ export const solutions: Solution[] = [
   },
 ];
 
-export const personas = [
+const personas = [
   {
     id: "leaders",
     label: "Admins & principals",
@@ -655,7 +659,7 @@ export const personas = [
   },
 ];
 
-export const aiWorkflows = [
+const aiWorkflows = [
   {
     title: "Ask Your Data",
     text: "Leaders ask \"Show outstanding fees by class for this month\" and get the table, a chart and a PDF report, scoped to their own institution.",
@@ -682,7 +686,7 @@ export const aiWorkflows = [
   },
 ];
 
-export const automations = [
+const automations = [
   {
     icon: "wallet" as IconName,
     title: "Fee challans, on autopilot",
@@ -703,32 +707,34 @@ export const automations = [
   },
 ];
 
-export const faqs = [
+const faqs = [
   { q: "What does AcadoAI include?", a: "Student and staff records, classes and timetables, attendance, tests, exams and results, fees and finance, payroll, messaging and School Story, plus AI tools for leaders, teachers and students. Enabled modules depend on your institution's setup." },
   { q: "What does AcadoAI automate?", a: "Fee challans are generated on your billing schedule, unrecorded students are marked absent after the attendance window, and student performance is tracked so those who need attention are flagged to admins, teachers and parents." },
   { q: "Can we control staff permissions?", a: "Yes. Your admin can delegate 26 administrative modules one by one to principals, management staff and accountants. Teachers and students work only within their assigned classes and own records, and every permission change is audited." },
   { q: "Does AcadoAI support partial fee payments?", a: "Yes. You can collect partial and line-item payments, collect several months at once, review student-uploaded payment proof and issue receipts that can be verified by QR code or a 5-digit code." },
   { q: "What AI tools are available for teachers and students?", a: "Teachers get lesson plans, assignments, quizzes, presentations, a lecture assistant and NoteBookLM. Students get a learning instructor, subject-specific assistants, document study tools and a 3D voice tutor. AI usage follows the allowance your institution sets." },
+  { q: "Where is our data stored?", a: "By default, your dedicated database and server are hosted in secure European data centres. If your country requires data to stay local, we can deploy your database and server in a data centre in your own country." },
   { q: "Is there a mobile app?", a: "Yes. AcadoAI's mobile app has admin, teacher and student workspaces covering dashboards, attendance, finance, receipt verification, messaging, School Story and learning records." },
 ];
 
 // No fixed subscription: each institution gets a package sized to its users and operations.
-export const pricingSteps = [
+const pricingSteps = [
   { title: "We study your operations", text: "Number of students and staff, campuses, and the modules your institution actually uses." },
   { title: "We size your system", text: "How much database space and file storage you need, and the right server configuration for your load." },
   { title: "You get a custom package", text: "One clear price for your complete system, with no fixed plan tiers and nothing you don't use." },
 ];
 
-export const pricingFactors = [
+const pricingFactors = [
   { icon: "users" as IconName, title: "Users", text: "Students, teachers, staff and parents who use the system." },
   { icon: "check" as IconName, title: "Modules", text: "Only the operations you run, from fees and attendance to payroll." },
   { icon: "database" as IconName, title: "Database & storage", text: "Dedicated database size and file storage matched to your records." },
-  { icon: "server" as IconName, title: "Server configuration", text: "A dedicated cloud server sized for your institution's usage." },
+  { icon: "server" as IconName, title: "Server configuration", text: "A dedicated cloud server sized for your usage, in Europe or your own country." },
   { icon: "sparkles" as IconName, title: "AI credits", text: "Buy extra AI credits whenever you need them, only for what you use." },
 ];
 
-export const pricingIncludes = [
+const pricingIncludes = [
   "Dedicated database and cloud server",
+  "Hosting in Europe or in your own country",
   "2 months free trial",
   "Free data migration by our team",
   "Free staff training",
@@ -737,7 +743,7 @@ export const pricingIncludes = [
 ];
 
 // Onboarding phases shown on the pricing page. Keep timings in line with what the team actually delivers.
-export const rolloutPhases = [
+const rolloutPhases = [
   {
     when: "Week 1",
     title: "Discovery & assessment",
@@ -777,7 +783,7 @@ export const rolloutPhases = [
 ];
 
 // Shown on the pricing page after the rollout plan. Only list support the team actually provides.
-export const readiness = {
+const readiness = {
   checklist: [
     "Student, staff and fee data verified with your team",
     "Fee plans and challans tested on a real billing cycle",
@@ -800,14 +806,374 @@ export const readiness = {
   ],
 };
 
-export const securityPoints = [
+const securityPoints = [
   { icon: "database" as IconName, title: "Your own database", text: "No shared databases. Your institution's data is stored in its own dedicated database, fully isolated from every other school." },
   { icon: "server" as IconName, title: "Dedicated cloud server", text: "Each institution runs on its own secure cloud server with independent access control." },
   { icon: "key" as IconName, title: "You own your data", text: "The institution owner has complete control: export, manage or delete your data at any time." },
   { icon: "lock" as IconName, title: "Enterprise-grade security", text: "Encrypted data transfer, secure sessions, role and module permissions, and audit trails for every change." },
 ];
 
-export const nav = {
-  product: features.map((f) => ({ name: f.name, href: `/features/${f.slug}`, summary: f.summary, icon: f.icon })),
-  solutions: solutions.map((s) => ({ name: s.name, href: `/solutions/${s.slug}`, icon: s.icon })),
+// Interface copy for every component. Placeholders like {name} are filled with fill().
+const ui = {
+  meta: {
+    title: "AcadoAI – AI-Powered Education Management Software",
+    description:
+      "AI-powered education management software for schools, colleges and academies: fees, attendance, exams, staff, parent messaging and AI teaching tools.",
+  },
+  common: {
+    bookDemo: "Book a demo",
+    seePricing: "See pricing",
+    contactSales: "Contact sales",
+    home: "Home",
+    homeLabel: "AcadoAI home",
+    product: "Product",
+    features: "Features",
+    solutions: "Solutions",
+    pricing: "Pricing",
+    about: "About",
+    contact: "Contact",
+    company: "Company",
+    breadcrumb: "Breadcrumb",
+    skip: "Skip to content",
+  },
+  nav: {
+    main: "Main",
+    seeItLive: "See it live",
+    tour: "A 30-minute tour, tailored to your school.",
+    byInstitution: "By institution",
+    pricingBlurb: "Flexible packages built around your institution.",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    language: "Language",
+  },
+  hero: {
+    eyebrow: "AI-powered education management",
+    title: "Education management software, connected by AI.",
+    highlight: "connected",
+    lead: "Manage students, attendance, fees, exams and staff in one AI-powered platform. AcadoAI automates the routine, flags students who need attention, and keeps leaders, teachers, parents and students connected.",
+    explore: "Explore features",
+    points: ["Automated fee challans", "Role-based access", "AI for every role"],
+    imageAlt: "Teacher and student using AcadoAI on a tablet",
+  },
+  heroVisual: {
+    needAttention: "3 students need attention",
+    roles: ["Admin", "Teacher", "Parent"],
+    alertsSent: "Alerts sent automatically",
+    attendance: "Today's attendance",
+    autoMarked: "Auto-marked",
+    challans: "March challans generated",
+    billing: "Billing policy · automatic",
+  },
+  stats: { label: "AcadoAI at a glance" },
+  logoWall: {
+    title: "Institutions using AcadoAI",
+    lead: "Meet the schools and academies already on board.",
+    coaching: "Coaching Centre",
+    school: "School",
+    logo: "{name} logo",
+  },
+  modules: {
+    eyebrow: "The platform",
+    title: "Everything your institution runs on, in one place",
+    lead: "Thirteen connected modules share the same students, classes and permissions, so nothing is typed twice.",
+  },
+  automation: {
+    eyebrow: "Automation",
+    title: "The routine runs itself. You hear about what matters.",
+    lead: "AcadoAI watches attendance, results, assignments and fees for every student, then alerts the right people when someone needs attention.",
+    inputs: ["Attendance", "Test & exam results", "Assignments", "Fee balances"],
+    outputs: ["Admin alert", "Teacher alert", "Parent alert"],
+    engine: "tracks & detects",
+    reminders: "Assignment & test reminders",
+    cta: "How automation works",
+  },
+  personas: {
+    eyebrow: "For every role",
+    title: "Built for everyone who keeps education running",
+    lead: "Each person sees exactly what they need, and the AI does the repetitive part of their job.",
+    tabs: "Roles",
+    explore: "Explore for {role}",
+    demo: "AcadoAI demo for {role}",
+    watch: "Watch the demo for {role}",
+  },
+  ai: {
+    eyebrow: "AI built into daily work",
+    title: "Practical AI for leaders, teachers and students.",
+    lead: "Different AI tools for different jobs, working inside your institution's own records, with usage allowances you control.",
+    cta: "Explore AI features",
+  },
+  access: {
+    eyebrow: "Roles & permissions",
+    title: "Give each team member exactly the access their work needs.",
+    lead: "Every role has its own workspace. Your admin delegates administrative modules one by one, and every change is audited.",
+    roles: [
+      { role: "School Admin", text: "Full institution administration and permission control" },
+      { role: "Principal", text: "Scoped dashboard plus granted modules, incl. approvals and Ask Your Data" },
+      { role: "Management & Accountant", text: "Only the modules the admin delegates" },
+      { role: "Teacher & Coordinator", text: "Assigned classes, sections and students" },
+      { role: "Student", text: "Own learning, results, attendance and fees" },
+    ],
+    cta: "Roles & permissions",
+    meta: "Versioned saves · audit records · realtime updates",
+    modules: "admin modules you can delegate, one by one",
+    imageAlt: "AcadoAI permission editor for an accountant",
+  },
+  mobile: {
+    eyebrow: "Mobile app",
+    title: "Keep education work within reach.",
+    lead: "Native mobile workspaces for admins, teachers and students, signed in with a school code and running on the same secure data as the web portal.",
+    sides: [
+      { title: "Admin", text: "Dashboard, approvals, attendance, finance, QR receipt verification and Ask Your Data." },
+      { title: "Teacher", text: "Today's classes, topic planning with video, attendance, tests and marks." },
+      { title: "Student", text: "Timetable, courses, assignments, tests, results, fees and payment proof." },
+    ],
+    cta: "Mobile app",
+    imageAlt: "Actual AcadoAI mobile app sign-in screen",
+  },
+  security: {
+    eyebrow: "Security & privacy",
+    title: "Your data.",
+    titleHighlight: "Your control.",
+    lead: "Every institution on AcadoAI gets its own dedicated database and server, completely separate from other schools. Your data belongs to you, not us.",
+    residencyEyebrow: "Data residency",
+    residencyTitle: "Your data, in your country.",
+    residencyText:
+      "Your dedicated database and server are hosted in secure European data centres by default. If local rules require your data to stay at home, we deploy AcadoAI on servers in a data centre in your own country.",
+    europeTitle: "Europe by default",
+    europeText: "Secure European data centres for every institution.",
+    localTitle: "Your own country",
+    localText: "Local deployment when your data must stay in-country.",
+  },
+  testimonials: {
+    eyebrow: "What our users say",
+    title: "Trusted by schools and academies",
+    lead: "Hear from the people who run their institutions on AcadoAI every day.",
+    quotes: [
+      "AcadoAI brought our admissions, attendance and fee records into one place. Fee challans now go out on time without the end-of-month rush, and our staff spend far less time on paperwork.",
+      "Parents can now see attendance and results on their phones, and our teachers use the AI tools to prepare quizzes and lessons quickly. Running the school feels calmer and far more organised.",
+      "In a coaching centre, every student's progress matters. AcadoAI flags students who need attention early, so we can follow up with them and their parents before small gaps become big ones.",
+    ],
+  },
+  faq: { title: "Questions institutions ask us", lead: "Can't find your answer? Our team replies within one business day." },
+  contact: {
+    eyebrow: "Book a demo",
+    title: "Tell us about your institution. We'll show you the rest.",
+    lead: "Share a few details and we'll reply within one business day with a tailored walkthrough of AcadoAI.",
+    sales: "Sales",
+    support: "Support",
+    phone: "Phone",
+    firstName: "First name",
+    lastName: "Last name",
+    email: "Email",
+    mobile: "Mobile number",
+    organization: "Organization name",
+    institutionType: "Institution type",
+    types: ["School (K-12)", "College", "University", "Coaching Centre / Academy"],
+    message: "What would you like to see?",
+    optional: "(optional)",
+    messagePlaceholder: "Number of students, campuses, current software…",
+    errRequired: "Please fill in your name, email, mobile number and organization name.",
+    errEmail: "Please enter a valid email address.",
+    errPhone: "Please enter a valid mobile number, e.g. +92 300 1234567.",
+    errConfig: "Email service is not configured yet. Please try again later.",
+    errSend: "We couldn't send your request right now. Please try again, or email us at {email}.",
+    sending: "Sending…",
+    submit: "Request my demo",
+    thanks: "Thank you, {name}!",
+    received: "Your demo request for {org} has been received. Our team will contact you within one business day.",
+    confirmation: "A confirmation is on its way to {email}.",
+    pickTime: "Pick a demo time now",
+    close: "Close",
+  },
+  ctaBand: { title: "See AcadoAI running your institution.", lead: "A 30-minute demo, tailored to how your institution works." },
+  footer: {
+    tagline: "AI-powered education management for administration, teaching, finance and student learning.",
+    privacy: "Privacy Policy",
+    terms: "Terms & Conditions",
+    deleteAccount: "Delete Account",
+    rights: "All rights reserved.",
+    social: "AcadoAI on {network}",
+  },
+  offer: {
+    eyebrow: "Special offer",
+    titleStart: "Start with",
+    titleHighlight: "2 months free",
+    lead: "Switch to AcadoAI with zero risk. We handle the move for you.",
+    perks: [
+      { title: "2 months free trial", text: "Run your whole institution on AcadoAI before you pay anything." },
+      { title: "Free data migration", text: "Our team moves your students, staff and fee records for you." },
+      { title: "Free staff training", text: "We train your admins, accountants and teachers at no cost." },
+    ],
+    cta: "Claim free trial",
+    close: "Close offer",
+    launcher: "2 months free",
+    launcherMore: "trial",
+  },
+  stores: { appStore: "Download on the", googlePlay: "Get it on" },
+  notFound: {
+    eyebrow: "Error 404",
+    title: "We couldn't find that page",
+    lead: "The link may be old or mistyped. Start from the home page or explore what AcadoAI can do.",
+    home: "Back to home",
+  },
+  featurePage: {
+    benefitsEyebrow: "Why institutions choose AcadoAI {name}",
+    benefitsTitle: "What you get",
+    capabilities: "Capabilities",
+    inside: "Inside {name}",
+    related: "Works with the rest of the platform",
+    screenAlt: "AcadoAI {name} screen",
+    alts: {
+      "reports-analytics": "A school principal reviewing fees by class and downloadable reports using AcadoAI Ask Your Data",
+      "ai-tutor": "A boy and girl learning with AcadoAI AI Tutor and Study Tools, with a 3D teacher and visual maths board",
+      "student-information-system": "A school administrator and students reviewing the AcadoAI Students and Staff directory together",
+      "mobile-app": "Actual AcadoAI mobile app admin dashboard with student, staff and class management",
+    } as Record<string, string>,
+  },
+  featureGrid: { eyebrow: "Related features", title: "Everything connected" },
+  solutionPage: {
+    eyebrow: "For {name}",
+    benefitsEyebrow: "Built for {name}",
+    benefitsTitle: "Why it works for you",
+    modulesEyebrow: "The modules you'll use",
+    modulesTitle: "AcadoAI for {name}",
+    alts: {
+      "coaching-academies": "A realistic coaching academy classroom with batch desks, exam preparation materials, a whiteboard and AcadoAI batch schedule",
+      colleges: "A college campus on an open book with a graduation cap, diploma and AcadoAI results dashboard",
+      "private-schools": "A private school principal and finance manager reviewing AcadoAI fee collection and verified receipts",
+      "k-12-schools": "A K-12 teacher helping a boy and girl learn with AcadoAI at a classroom desk",
+    } as Record<string, string>,
+  },
+  aboutPage: {
+    metaTitle: "About AcadoAI – AI-first Education Management",
+    metaDescription: "AcadoAI builds AI-first school management software so educators spend less time on administration and more time on teaching.",
+    eyebrow: "About AcadoAI",
+    title: "We build the software we wished our schools had",
+    lead: "AcadoAI brings administration, teaching, finance and learning into one AI-first platform, so schools can focus on students.",
+    missionEyebrow: "Our mission",
+    missionTitle: "Give every educator back the hours admin takes away.",
+    missionLead: "Schools run on dozens of disconnected tools, spreadsheets and phone calls. We replace them with one calm system where AI handles the repetitive work.",
+    heroAlt: "AcadoAI branding with a school, open book and connected administration, learning, finance and AI symbols",
+    missionAlt: "A teacher spending time on a science activity with a boy and girl in a bright classroom",
+    values: [
+      { title: "Teachers first", text: "Every feature is judged by one question: does it give a teacher time back?" },
+      { title: "AI that earns its place", text: "AI belongs where it removes real work, not as a badge on the box." },
+      { title: "Privacy by design", text: "Each school's data is isolated and only visible to the people who need it." },
+    ],
+  },
+  contactPage: {
+    metaTitle: "Contact Sales & Book a Demo",
+    metaDescription: "Book a personalised AcadoAI demo or contact our sales and support team. We reply within one business day.",
+    title: "Let's talk about your school",
+    lead: "Book a demo, ask about pricing or get help from support.",
+  },
+  pricingPage: {
+    metaTitle: "Pricing – Custom School Management Software Packages",
+    metaDescription:
+      "No fixed subscription. AcadoAI builds a custom package for each school based on users, modules, storage and server needs, with a 2-month free trial.",
+    title: "Flexible pricing, built around your institution",
+    lead: "No fixed subscription. We size your complete system to your users and operations, so you only pay for what you need.",
+    modulesEyebrow: "Modules",
+    modulesTitle: "Modules you can include",
+  },
+  pricing: {
+    factorsEyebrow: "What shapes your price",
+    factorsTitle: "You pay for what your institution uses.",
+    factorsLead: "No fixed monthly tiers. Your package is built from these five things.",
+    includes: "Every package includes",
+    quote: "Get your custom quote",
+    talk: "Talk to sales",
+  },
+  pricingVisual: {
+    label: "Example of a custom AcadoAI package",
+    eyebrow: "Example package",
+    title: "Your custom system",
+    sizing: "Sizing…",
+    users: "Users",
+    usersUnit: " students & staff",
+    database: "Dedicated database",
+    storage: "File storage",
+    aiCredits: "AI credits",
+    perMonth: " / month",
+    server: "Dedicated cloud server",
+    serverSpec: "4 vCPU · 8 GB RAM · Europe or your country",
+    modules: ["Fees", "Attendance", "Exams", "Payroll", "AI tools"],
+    ready: "Package ready",
+    readySub: "No fixed plan · pay for what you use",
+  },
+  rollout: {
+    eyebrow: "Onboarding",
+    title: "AcadoAI implementation & rollout plan",
+    lead: "A phased rollout with clear deliverables at every step, so your institution moves to AcadoAI without disrupting daily work.",
+    deliverables: "Deliverables",
+  },
+  readinessSection: {
+    eyebrow: "Before and after go-live",
+    title: "Operational readiness, training & support",
+    lead: "We check that your institution is ready before it goes live, train every role, and stay with you after launch.",
+    readyEyebrow: "Operational readiness",
+    checklistTitle: "Go-live checklist",
+    checklistLead: "Your institution goes live only when every item is signed off with your team.",
+    trainingEyebrow: "Training",
+    trainingTitle: "Role-based training, free of cost",
+    trainingLead: "Each team learns only what their daily work needs, on the web portal and mobile apps.",
+    supportEyebrow: "Support",
+    supportTitle: "We stay with you after launch",
+  },
 };
+
+const en = {
+  ui,
+  productFacts,
+  stats,
+  features,
+  solutions,
+  personas,
+  aiWorkflows,
+  automations,
+  faqs,
+  pricingSteps,
+  pricingFactors,
+  pricingIncludes,
+  rolloutPhases,
+  readiness,
+  securityPoints,
+};
+
+export type Content = typeof en;
+type DeepPartial<T> = T extends string ? string : T extends readonly (infer U)[] ? DeepPartial<U>[] : T extends object ? { [K in keyof T]?: DeepPartial<T[K]> } : T;
+export type Translation = DeepPartial<Content>;
+
+// Translations only carry text; slugs, icons and image paths always come from English.
+function merge<T>(base: T, over: unknown): T {
+  if (over === undefined || over === null) return base;
+  if (typeof base === "string") return (typeof over === "string" && over ? over : base) as T;
+  if (Array.isArray(base)) return base.map((item, i) => merge(item, (over as unknown[])[i])) as T;
+  if (base && typeof base === "object") {
+    const out: Record<string, unknown> = { ...(base as Record<string, unknown>) };
+    for (const key of Object.keys(over as object)) out[key] = merge((base as Record<string, unknown>)[key], (over as Record<string, unknown>)[key]);
+    return out as T;
+  }
+  return base;
+}
+
+const translations: Partial<Record<Locale, Translation>> = { ur, ar, es };
+const cache = new Map<Locale, Content>();
+
+export function getContent(lang: Locale): Content {
+  if (lang === "en") return en;
+  let c = cache.get(lang);
+  if (!c) cache.set(lang, (c = merge(en, translations[lang])));
+  return c;
+}
+
+/** Fills {placeholders} in a translated string. */
+export const fill = (text: string, vars: Record<string, string | number>) => text.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? `{${k}}`));
+
+export const getNav = (c: Content) => ({
+  product: c.features.map((f) => ({ name: f.name, href: `/features/${f.slug}`, summary: f.summary, icon: f.icon })),
+  solutions: c.solutions.map((s) => ({ name: s.name, href: `/solutions/${s.slug}`, icon: s.icon })),
+});
+
+// English data for routing (slugs) and other locale-independent code.
+export { stats, productFacts };

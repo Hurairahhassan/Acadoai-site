@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import type { MockName } from "../content/pages";
 import { isExternal, site } from "../content/pages";
+import { href as localHref, t } from "../content/request";
 import { Mock } from "./mocks";
 
 export const publicFileExists = (src: string) => fs.existsSync(path.join(process.cwd(), "public", src));
@@ -42,7 +43,7 @@ export function ButtonLink({
       {inner}
     </a>
   ) : (
-    <Link href={href} className={cls}>
+    <Link href={localHref(href)} className={cls}>
       {inner}
     </Link>
   );
@@ -50,48 +51,52 @@ export function ButtonLink({
 
 export const DemoButton = (props: { variant?: keyof typeof btn; className?: string; children?: ReactNode }) => (
   <ButtonLink href={site.demoUrl} variant={props.variant} className={props.className}>
-    {props.children ?? "Book a demo"}
+    {props.children ?? t().ui.common.bookDemo}
   </ButtonLink>
 );
 
 const stores = [
   {
     href: site.appStoreUrl,
-    top: "Download on the",
+    top: "appStore" as const,
     name: "App Store",
     icon: "M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.08-1.59-2.77-1.8-3.37-1.83-1.43-.15-2.8.84-3.53.84-.73 0-1.85-.82-3.04-.8-1.56.02-3 .91-3.81 2.31-1.63 2.82-.42 6.99 1.17 9.28.78 1.12 1.7 2.38 2.91 2.33 1.17-.05 1.61-.75 3.02-.75 1.41 0 1.81.75 3.04.73 1.26-.02 2.05-1.14 2.82-2.27.89-1.3 1.25-2.56 1.27-2.62-.03-.01-2.44-.94-2.47-3.72ZM14.06 5.75c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.72 1.4-.6.69-1.12 1.79-.98 2.85 1.04.08 2.1-.53 2.74-1.31Z",
   },
   {
     href: site.playStoreUrl,
-    top: "Get it on",
+    top: "googlePlay" as const,
     name: "Google Play",
     icon: "M3.6 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L3.6 2.3Zm10.8 10.8 2.6 2.6-11.6 6.6c-.4.2-.8.3-1.1.2l10.1-9.4Zm0-2.2L4.3 1.5c.3-.1.7 0 1.1.2L17 8.3l-2.6 2.6Zm3.8 4.1-2.9-2.9 2.9-2.9 3.3 1.9c.9.5.9 1.5 0 2l-3.3 1.9Z",
   },
 ];
 
 /** App Store and Google Play download buttons. */
-export const StoreButtons = ({ className = "" }: { className?: string }) => (
+export const StoreButtons = ({ className = "" }: { className?: string }) => {
+  const label = t().ui.stores;
+  return (
   <div className={`flex flex-wrap gap-3 ${className}`}>
     {stores.map((s) => (
+
       <a
         key={s.name}
         href={s.href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`${s.top} ${s.name}`}
+        aria-label={`${label[s.top]} ${s.name}`}
         className="inline-flex items-center gap-3 rounded-xl bg-night px-5 py-3 text-white shadow-[0_10px_24px_-12px_rgba(4,14,69,0.8)] transition-colors duration-300 hover:bg-royal"
       >
         <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current" aria-hidden>
           <path d={s.icon} />
         </svg>
-        <span className="text-left leading-tight">
-          <span className="block text-[11px] text-white/75">{s.top}</span>
+        <span className="text-start leading-tight">
+          <span className="block text-[11px] text-white/75">{label[s.top]}</span>
           <span className="block text-lg font-semibold">{s.name}</span>
         </span>
       </a>
     ))}
   </div>
-);
+  );
+};
 
 export function SectionHeader({
   eyebrow,
@@ -129,7 +134,7 @@ export function Screenshot({ src, alt, priority = false, className = "" }: { src
       <div className="flex items-center gap-2 border-b border-line bg-paper px-4 py-2.5">
         <span className="h-2 w-2 rounded-full bg-line" />
         <span className="h-2 w-2 rounded-full bg-line" />
-        <span className="ml-3 rounded bg-white px-3 py-0.5 text-[11px] text-muted ring-1 ring-line">app.acadoai.com</span>
+        <span className="ms-3 rounded bg-white px-3 py-0.5 text-[11px] text-muted ring-1 ring-line">app.acadoai.com</span>
       </div>
       <Image src={src} alt={alt} width={1600} height={1000} priority={priority} sizes="(min-width: 1024px) 60vw, 100vw" className="h-auto w-full" />
     </figure>
@@ -174,10 +179,10 @@ export function JsonLd({ data }: { data: object }) {
 export const breadcrumbLd = (items: { name: string; path: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  itemListElement: [{ name: "Home", path: "" }, ...items].map((it, i) => ({
+  itemListElement: [{ name: t().ui.common.home, path: "/" }, ...items].map((it, i) => ({
     "@type": "ListItem",
     position: i + 1,
     name: it.name,
-    item: `${site.url}${it.path}`,
+    item: `${site.url}${localHref(it.path) === "/" ? "" : localHref(it.path)}`,
   })),
 });

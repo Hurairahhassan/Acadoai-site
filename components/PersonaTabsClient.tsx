@@ -4,16 +4,26 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import type { personas as Personas } from "../content/pages";
+import type { Content } from "../content/pages";
 
-export function PersonaTabsClient({ personas, screens }: { personas: typeof Personas; screens: ReactNode[] }) {
+export function PersonaTabsClient({
+  personas,
+  screens,
+  labels,
+}: {
+  personas: Content["personas"];
+  screens: ReactNode[];
+  labels: { tabs: string; explore: string[] };
+}) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const p = personas[active];
 
   const onKey = (e: KeyboardEvent) => {
-    const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    // In right-to-left pages the visual order of the tabs is reversed.
+    const rtl = document.documentElement.dir === "rtl";
+    const dir = e.key === "ArrowRight" ? (rtl ? -1 : 1) : e.key === "ArrowLeft" ? (rtl ? 1 : -1) : 0;
     if (!dir) return;
     const next = (active + dir + personas.length) % personas.length;
     setActive(next);
@@ -22,7 +32,7 @@ export function PersonaTabsClient({ personas, screens }: { personas: typeof Pers
 
   return (
     <div className="mt-14">
-      <div role="tablist" aria-label="Roles" onKeyDown={onKey} className="flex gap-1 overflow-x-auto border-b border-line [scrollbar-width:none]">
+      <div role="tablist" aria-label={labels.tabs} onKeyDown={onKey} className="flex gap-1 overflow-x-auto border-b border-line [scrollbar-width:none]">
         {personas.map((item, i) => (
           <button
             key={item.id}
@@ -71,8 +81,8 @@ export function PersonaTabsClient({ personas, screens }: { personas: typeof Pers
               ))}
             </ul>
             <Link href={p.href} className="group mt-10 inline-flex items-center gap-2 font-semibold text-royal">
-              <span className="link-underline">Explore for {p.label.toLowerCase()}</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
+              <span className="link-underline">{labels.explore[active]}</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" aria-hidden />
             </Link>
           </motion.div>
         </AnimatePresence>

@@ -1,25 +1,29 @@
 import { Check, Mail, Phone } from "lucide-react";
-import { readiness, site } from "../content/pages";
+import { site } from "../content/pages";
+import { t } from "../content/request";
 import { IconTile } from "./icons";
 import { Reveal, Stagger, StaggerItem } from "./motion";
 import { SectionHeader } from "./ui";
 
-export const Readiness = () => (
+export const Readiness = () => {
+  const { readiness, ui } = t();
+  const c = ui.readinessSection;
+  return (
   <section id="readiness" className="bg-white py-28">
     <div className="container-x">
       <Reveal>
         <SectionHeader
-          eyebrow="Before and after go-live"
-          title="Operational readiness, training & support"
-          lead="We check that your institution is ready before it goes live, train every role, and stay with you after launch."
+          eyebrow={c.eyebrow}
+          title={c.title}
+          lead={c.lead}
         />
       </Reveal>
 
       <div className="mt-16 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal className="rounded-3xl bg-navy p-8 text-white sm:p-10">
-          <p className="eyebrow text-sky">Operational readiness</p>
-          <h3 className="mt-3 text-2xl font-semibold">Go-live checklist</h3>
-          <p className="mt-2 leading-7 text-white/70">Your institution goes live only when every item is signed off with your team.</p>
+          <p className="eyebrow text-sky">{c.readyEyebrow}</p>
+          <h3 className="mt-3 text-2xl font-semibold">{c.checklistTitle}</h3>
+          <p className="mt-2 leading-7 text-white/70">{c.checklistLead}</p>
           <ul className="mt-8 space-y-4">
             {readiness.checklist.map((item) => (
               <li key={item} className="flex gap-3 leading-7">
@@ -33,9 +37,9 @@ export const Readiness = () => (
         </Reveal>
 
         <Reveal delay={0.1} className="rounded-3xl bg-paper p-8 ring-1 ring-line sm:p-10">
-          <p className="eyebrow text-royal">Training</p>
-          <h3 className="mt-3 text-2xl font-semibold text-ink">Role-based training, free of cost</h3>
-          <p className="mt-2 leading-7 text-muted">Each team learns only what their daily work needs, on the web portal and mobile apps.</p>
+          <p className="eyebrow text-royal">{c.trainingEyebrow}</p>
+          <h3 className="mt-3 text-2xl font-semibold text-ink">{c.trainingTitle}</h3>
+          <p className="mt-2 leading-7 text-muted">{c.trainingLead}</p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {readiness.training.map((t) => (
               <li key={t.role} className="rounded-2xl bg-white p-5 ring-1 ring-line">
@@ -49,8 +53,8 @@ export const Readiness = () => (
       </div>
 
       <Reveal className="mt-16">
-        <p className="eyebrow text-royal">Support</p>
-        <h3 className="mt-3 text-2xl font-semibold text-ink sm:text-3xl">We stay with you after launch</h3>
+        <p className="eyebrow text-royal">{c.supportEyebrow}</p>
+        <h3 className="mt-3 text-2xl font-semibold text-ink sm:text-3xl">{c.supportTitle}</h3>
       </Reveal>
       <Stagger className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {readiness.support.map((s) => (
@@ -66,9 +70,10 @@ export const Readiness = () => (
           <Mail className="h-4 w-4" aria-hidden /> {site.supportEmail}
         </a>
         <a href={site.phoneHref} className="inline-flex items-center gap-2 font-semibold text-royal hover:underline">
-          <Phone className="h-4 w-4" aria-hidden /> {site.phone}
+          <Phone className="h-4 w-4" aria-hidden /> <span dir="ltr">{site.phone}</span>
         </a>
       </Reveal>
     </div>
   </section>
-);
+  );
+};

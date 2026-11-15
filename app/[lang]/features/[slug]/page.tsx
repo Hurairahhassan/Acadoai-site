@@ -1,37 +1,44 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Benefits } from "../../../components/Benefits";
-import { Capabilities } from "../../../components/Capabilities";
-import { FeatureGrid } from "../../../components/FeatureGrid";
-import { PageHero } from "../../../components/PageHero";
-import { PageShell } from "../../../components/PageShell";
-import { Reveal } from "../../../components/motion";
-import { breadcrumbLd, JsonLd, ProductVisual, StoreButtons } from "../../../components/ui";
-import { features } from "../../../content/pages";
-import { pageMeta } from "../../seo";
+import { Benefits } from "../../../../components/Benefits";
+import { Capabilities } from "../../../../components/Capabilities";
+import { FeatureGrid } from "../../../../components/FeatureGrid";
+import { PageHero } from "../../../../components/PageHero";
+import { PageShell } from "../../../../components/PageShell";
+import { Reveal } from "../../../../components/motion";
+import { breadcrumbLd, JsonLd, ProductVisual, StoreButtons } from "../../../../components/ui";
+import { isLocale } from "../../../../content/i18n";
+import { features, fill, getContent } from "../../../../content/pages";
+import { setLang } from "../../../../content/request";
+import { pageMeta } from "../../../seo";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = PageProps<"/[lang]/features/[slug]">;
 
 export const dynamicParams = false;
 export const generateStaticParams = () => features.map((f) => ({ slug: f.slug }));
 
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const f = features.find((x) => x.slug === slug);
-  return f ? pageMeta({ title: f.seoTitle, description: f.seoDescription, path: `/features/${f.slug}` }) : {};
+  const { lang, slug } = await params;
+  if (!isLocale(lang)) return {};
+  const f = getContent(lang).features.find((x) => x.slug === slug);
+  return f ? pageMeta({ lang, title: f.seoTitle, description: f.seoDescription, path: `/features/${f.slug}` }) : {};
 }
 
 export default async function FeaturePage({ params }: Props) {
-  const { slug } = await params;
-  const f = features.find((x) => x.slug === slug);
+  const { lang, slug } = await params;
+  if (!isLocale(lang)) notFound();
+  setLang(lang);
+  const { features: list, ui } = getContent(lang);
+  const f = list.find((x) => x.slug === slug);
   if (!f) notFound();
-  const related = features.filter((x) => x.slug !== f.slug).slice(0, 6).map((x) => x.slug);
+  const c = ui.featurePage;
+  const related = list.filter((x) => x.slug !== f.slug).slice(0, 6).map((x) => x.slug);
 
   return (
     <PageShell>
-      <JsonLd data={breadcrumbLd([{ name: "Features", path: "/#platform" }, { name: f.name, path: `/features/${f.slug}` }])} />
+      <JsonLd data={breadcrumbLd([{ name: ui.common.features, path: "/#platform" }, { name: f.name, path: `/features/${f.slug}` }])} />
       <PageHero
-        crumbs={[{ name: "Features", href: "/#platform" }, { name: f.name }]}
+        crumbs={[{ name: ui.common.features, href: "/#platform" }, { name: f.name }]}
         eyebrow={f.name}
         title={f.h1}
         lead={f.intro}
@@ -41,11 +48,7 @@ export default async function FeaturePage({ params }: Props) {
               src={f.slug === "reports-analytics" ? "/images/features/ask-your-data.png"
                 : f.slug === "ai-tutor" ? "/images/features/ai-tutor-study-tools.png"
                 : "/images/features/students-staff.png"}
-              alt={f.slug === "reports-analytics"
-                ? "A school principal reviewing fees by class and downloadable reports using AcadoAI Ask Your Data"
-                : f.slug === "ai-tutor"
-                ? "A boy and girl learning with AcadoAI AI Tutor and Study Tools, with a 3D teacher and visual maths board"
-                : "A school administrator and students reviewing the AcadoAI Students and Staff directory together"}
+              alt={c.alts[f.slug]}
               width={1448}
               height={1086}
               priority
@@ -59,7 +62,7 @@ export default async function FeaturePage({ params }: Props) {
             <div className="relative rounded-[2.75rem] bg-night p-2.5 shadow-[0_40px_80px_-25px_rgba(11,24,81,0.5)] ring-1 ring-white/70">
               <Image
                 src="/images/people/home_scren.jpeg"
-                alt="Actual AcadoAI mobile app admin dashboard with student, staff and class management"
+                alt={c.alts["mobile-app"]}
                 width={709}
                 height={1600}
                 priority
@@ -69,7 +72,7 @@ export default async function FeaturePage({ params }: Props) {
             </div>
           </div>
         ) : (
-          <ProductVisual src={f.screen} mock={f.mock} alt={`AcadoAI ${f.name} screen`} priority />
+          <ProductVisual src={f.screen} mock={f.mock} alt={fill(c.screenAlt, { name: f.name })} priority />
         )}
       >
         {f.slug === "mobile-app" ? (
@@ -78,9 +81,9 @@ export default async function FeaturePage({ params }: Props) {
           </Reveal>
         ) : undefined}
       </PageHero>
-      <Benefits eyebrow={`Why institutions choose AcadoAI ${f.name}`} title="What you get" items={f.benefits} />
+      <Benefits eyebrow={fill(c.benefitsEyebrow, { name: f.name })} title={c.benefitsTitle} items={f.benefits} />
       <Capabilities name={f.name} items={f.capabilities} />
-      <FeatureGrid slugs={related} title="Works with the rest of the platform" />
+      <FeatureGrid slugs={related} title={c.related} />
     </PageShell>
   );
 }

@@ -1,9 +1,12 @@
 import { HeroVisual } from "./HeroVisual";
 import { Check, Sparkles } from "lucide-react";
 import { Magnetic, Reveal, WordReveal } from "./motion";
+import { t } from "../content/request";
 import { ButtonLink, DemoButton } from "./ui";
 
-export const Hero = () => (
+export const Hero = () => {
+  const c = t().ui.hero;
+  return (
   <section id="home" className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
     {/* Light sky gradient background */}
     <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,#e4f3ff_0%,#f5f9ff_42%,#eef1ff_100%)]">
@@ -16,16 +19,15 @@ export const Hero = () => (
       <div>
         <Reveal y={12}>
           <p className="eyebrow mb-6 inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-royal ring-1 ring-sky/60 backdrop-blur">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden /> AI-powered education management
+            <Sparkles className="h-3.5 w-3.5" aria-hidden /> {c.eyebrow}
           </p>
         </Reveal>
         <h1 className="text-[2.6rem] leading-[1.04] font-semibold text-ink sm:text-6xl lg:text-[3.9rem]">
-          <WordReveal text="Education management software, connected by AI." highlight="connected" hlClass="text-royal" />
+          <WordReveal text={c.title} highlight={c.highlight} hlClass="text-royal" />
         </h1>
         <Reveal delay={0.55}>
           <p className="mt-7 max-w-xl text-lg leading-8 text-muted sm:text-xl">
-            Manage students, attendance, fees, exams and staff in one AI-powered platform. AcadoAI automates the routine, flags students who need
-            attention, and keeps leaders, teachers, parents and students connected.
+            {c.lead}
           </p>
         </Reveal>
         <Reveal delay={0.7} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -33,17 +35,17 @@ export const Hero = () => (
             <DemoButton className="w-full px-7 py-4 text-base sm:w-auto" />
           </Magnetic>
           <ButtonLink href="/#platform" variant="ghost" className="px-7 py-4 text-base">
-            Explore features
+            {c.explore}
           </ButtonLink>
         </Reveal>
         <Reveal delay={0.85}>
           <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
-            {["Automated fee challans", "Role-based access", "AI for every role"].map((t) => (
-              <li key={t} className="flex items-center gap-2">
+            {c.points.map((p) => (
+              <li key={p} className="flex items-center gap-2">
                 <span className="grid h-5 w-5 place-items-center rounded-full bg-royal text-white">
                   <Check className="h-3 w-3" aria-hidden />
                 </span>
-                {t}
+                {p}
               </li>
             ))}
           </ul>
@@ -52,8 +54,9 @@ export const Hero = () => (
 
       <HeroVisual
         src="/images/people/herosection-realistic.png"
-        alt="Teacher and student using AcadoAI on a tablet"
+        alt={c.imageAlt}
       />
     </div>
   </section>
-);
+  );
+};

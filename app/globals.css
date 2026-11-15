@@ -162,3 +162,21 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Right-to-left languages (Urdu, Arabic). Unlayered so these win over utility classes. */
+html[dir="rtl"] {
+  /* Naskh first for Urdu/Arabic letters, the Latin font after it for brand names and numbers. */
+  --font-sans: var(--font-arabic), var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-arabic), var(--font-body), ui-sans-serif, sans-serif;
+}
+/* Letter-spacing breaks the joins between Arabic-script letters. */
+html[dir="rtl"] * {
+  letter-spacing: normal !important;
+}
+/* Arabic script has taller ascenders and descenders than the Latin display font. */
+html[dir="rtl"] :is(h1, h2, h3) {
+  line-height: 1.4 !important;
+}
+html[dir="rtl"] :is(.lucide-arrow-right, .lucide-arrow-up-right) {
+  scale: -1 1;
+}

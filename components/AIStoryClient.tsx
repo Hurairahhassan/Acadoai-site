@@ -27,7 +27,7 @@ function Step({
   // Dimming only applies on desktop, where the screenshot column follows the active step.
   return (
     <li ref={ref} className="lg:flex lg:min-h-[70vh] lg:items-center lg:py-12">
-      <div className={`lg:border-l-2 lg:pl-6 lg:transition-colors lg:duration-500 ${active ? "lg:border-sky" : "lg:border-white/15"}`}>
+      <div className={`lg:border-s-2 lg:ps-6 lg:transition-colors lg:duration-500 ${active ? "lg:border-sky" : "lg:border-white/15"}`}>
         <span className="font-mono text-sm text-sky">0{index + 1}</span>
         <h3 className={`mt-2 text-3xl font-semibold transition-colors duration-500 sm:text-4xl ${active ? "" : "lg:text-white/40"}`}>{title}</h3>
         <p className={`mt-4 max-w-md text-lg leading-8 text-white/75 transition-colors duration-500 ${active ? "" : "lg:text-white/35"}`}>{text}</p>

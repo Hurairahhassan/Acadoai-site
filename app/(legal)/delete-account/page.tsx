@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { UserX } from "lucide-react";
-import { LegalPage } from "../../components/LegalPage";
+import { LegalPage } from "../../../components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Delete Account and Data Policy | AcadoAI",

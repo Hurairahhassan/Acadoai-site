@@ -1,24 +1,32 @@
-import { Contact } from "../../components/Contact";
-import { FAQ } from "../../components/FAQ";
-import { PageHero } from "../../components/PageHero";
-import { PageShell } from "../../components/PageShell";
-import { breadcrumbLd, JsonLd } from "../../components/ui";
-import { pageMeta } from "../seo";
+import { Contact } from "../../../components/Contact";
+import { FAQ } from "../../../components/FAQ";
+import { PageHero } from "../../../components/PageHero";
+import { PageShell } from "../../../components/PageShell";
+import { breadcrumbLd, JsonLd } from "../../../components/ui";
+import { isLocale } from "../../../content/i18n";
+import { getContent } from "../../../content/pages";
+import { setLang } from "../../../content/request";
+import { pageMeta } from "../../seo";
 
-export const metadata = pageMeta({
-  title: "Contact Sales & Book a Demo",
-  description: "Book a personalised AcadoAI demo or contact our sales and support team. We reply within one business day.",
-  path: "/contact",
-});
+export async function generateMetadata({ params }: PageProps<"/[lang]/contact">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const c = getContent(lang).ui.contactPage;
+  return pageMeta({ lang, title: c.metaTitle, description: c.metaDescription, path: "/contact" });
+}
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: PageProps<"/[lang]/contact">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) return null;
+  setLang(lang);
+  const { contactPage: c, common, contact } = getContent(lang).ui;
   return (
     <PageShell cta={false}>
-      <JsonLd data={breadcrumbLd([{ name: "Contact", path: "/contact" }])} />
-      <PageHero crumbs={[{ name: "Contact" }]} eyebrow="Contact" title="Let's talk about your school" lead="Book a demo, ask about pricing or get help from support.">
+      <JsonLd data={breadcrumbLd([{ name: common.contact, path: "/contact" }])} />
+      <PageHero crumbs={[{ name: common.contact }]} eyebrow={common.contact} title={c.title} lead={c.lead}>
         <span />
       </PageHero>
-      <Contact />
+      <Contact copy={contact} />
       <FAQ />
     </PageShell>
   );
