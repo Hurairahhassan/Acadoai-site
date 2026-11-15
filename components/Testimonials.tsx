@@ -42,7 +42,7 @@ export const Testimonials = () => (
               <blockquote className="mt-5 flex-1 text-lg leading-8 text-ink">&ldquo;{t.quote}&rdquo;</blockquote>
               <figcaption className="mt-8 flex items-center gap-4 border-t border-line pt-6">
                 <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white ring-1 ring-line">
-                  <Image src={`/images/institutions/${t.logo}`} alt="" fill sizes="48px" className="object-contain p-1" />
+                  <Image src={`/images/institutions/${t.logo}`} alt={`${t.institution} logo`} fill sizes="48px" className="object-contain p-1" />
                 </span>
                 <span>
                   <span className="block font-semibold text-ink">{t.name}</span>

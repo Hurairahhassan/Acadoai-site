@@ -20,12 +20,12 @@ export const Hero = () => (
           </p>
         </Reveal>
         <h1 className="text-[2.6rem] leading-[1.04] font-semibold text-ink sm:text-6xl lg:text-[3.9rem]">
-          <WordReveal text="Education operations and learning, connected by AI." highlight="connected" hlClass="text-royal" />
+          <WordReveal text="Education management software, connected by AI." highlight="connected" hlClass="text-royal" />
         </h1>
         <Reveal delay={0.55}>
           <p className="mt-7 max-w-xl text-lg leading-8 text-muted sm:text-xl">
-            Manage students, attendance, fees, exams and staff in one platform. AcadoAI automates the routine, flags students who need attention, and
-            gives teachers and students practical AI tools.
+            Manage students, attendance, fees, exams and staff in one AI-powered platform. AcadoAI automates the routine, flags students who need
+            attention, and keeps leaders, teachers, parents and students connected.
           </p>
         </Reveal>
         <Reveal delay={0.7} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">

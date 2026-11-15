@@ -26,7 +26,7 @@ export const LogoWall = () => (
                 className="object-contain"
               />
             </div>
-            <h3 className="mt-5 min-h-12 max-w-[260px] text-base leading-6 font-semibold text-ink">{institution.name}</h3>
+            <p className="mt-5 min-h-12 max-w-[260px] text-base leading-6 font-semibold text-ink">{institution.name}</p>
             <p className="mt-2 rounded-full bg-sky/20 px-3 py-1 text-xs font-medium text-royal">{institution.type}</p>
           </li>
         ))}

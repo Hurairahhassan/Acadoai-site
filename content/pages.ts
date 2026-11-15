@@ -4,10 +4,10 @@
 
 export const site = {
   name: "AcadoAI",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://acadoai.com").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.acadoai.com").replace(/\/$/, ""),
   title: "AcadoAI – AI-Powered Education Management Software",
   description:
-    "AcadoAI is an AI-powered education management platform: students, attendance, fees, exams, results, payroll, messaging and AI tools for leaders, teachers and students, with role-based access for every team member.",
+    "AI-powered education management software for schools, colleges and academies: fees, attendance, exams, staff, parent messaging and AI teaching tools.",
   keywords: [
     "education management software",
     "education ERP",
