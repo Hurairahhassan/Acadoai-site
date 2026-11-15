@@ -28,10 +28,11 @@ export const site = {
   phone: "+92 313 1204236",
   phoneHref: "tel:+923131204236",
   // Comma-separated profile URLs, e.g. https://www.linkedin.com/company/acadoai
-  socials: (process.env.NEXT_PUBLIC_SOCIAL_URLS ?? "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean),
+  socials: [
+    "https://www.linkedin.com/company/acadoai-ems/",
+    "https://www.facebook.com/profile.php?id=61590438433278",
+    "https://www.instagram.com/acadoaiems/",
+  ],
 };
 
 export const isExternal = (href: string) => href.startsWith("http");

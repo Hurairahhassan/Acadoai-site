@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { nav, site } from "../content/pages";
 
 const columns = [
@@ -21,7 +22,12 @@ const legal = [
   { name: "Delete Account", href: "/delete-account" },
 ];
 
-const socialName = (url: string) => new URL(url).hostname.replace(/^www\./, "").split(".")[0];
+const socialIcons = {
+  linkedin: { Icon: Linkedin, label: "LinkedIn" },
+  facebook: { Icon: Facebook, label: "Facebook" },
+  instagram: { Icon: Instagram, label: "Instagram" },
+};
+const socialName = (url: string) => new URL(url).hostname.replace(/^www\./, "").split(".")[0] as keyof typeof socialIcons;
 
 export const Footer = () => (
   <footer className="bg-night text-white">
@@ -39,6 +45,24 @@ export const Footer = () => (
             {site.phone}
           </a>
         </address>
+        <ul className="mt-6 flex gap-3">
+          {site.socials.map((url) => {
+            const { Icon, label } = socialIcons[socialName(url)];
+            return (
+              <li key={url}>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  aria-label={`AcadoAI on ${label}`}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white/80 ring-1 ring-white/15 transition-colors hover:bg-sky hover:text-night"
+                >
+                  <Icon className="h-[18px] w-[18px]" aria-hidden />
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
       {columns.map((col) => (
         <nav key={col.title} aria-label={col.title}>
@@ -64,13 +88,6 @@ export const Footer = () => (
               <Link href={l.href} className="link-underline hover:text-white">
                 {l.name}
               </Link>
-            </li>
-          ))}
-          {site.socials.map((url) => (
-            <li key={url}>
-              <a href={url} target="_blank" rel="noopener noreferrer me" className="link-underline capitalize hover:text-white">
-                {socialName(url)}
-              </a>
             </li>
           ))}
         </ul>
