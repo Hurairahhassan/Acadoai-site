@@ -73,6 +73,11 @@
       transform: translate3d(20%, 10%, 0) rotate(8deg);
     }
   }
+  @keyframes grow {
+    from {
+      width: 0;
+    }
+  }
   @keyframes popIn {
     from {
       opacity: 0;

@@ -1,36 +1,55 @@
 import { Check } from "lucide-react";
-import { plans, site } from "../content/pages";
-import { Stagger, StaggerItem } from "./motion";
-import { ButtonLink } from "./ui";
+import { pricingFactors, pricingIncludes, pricingSteps, site } from "../content/pages";
+import { IconTile } from "./icons";
+import { Reveal, Stagger, StaggerItem } from "./motion";
+import { ButtonLink, SectionHeader } from "./ui";
 
 export const Pricing = () => (
   <section id="pricing" className="bg-white pb-28">
-    <Stagger className="container-x grid gap-6 lg:grid-cols-3">
-      {plans.map((p) => (
-        <StaggerItem
-          key={p.name}
-          className={`relative flex flex-col rounded-2xl p-8 sm:p-10 ${p.featured ? "bg-navy text-white shadow-[0_40px_80px_-40px_rgba(4,14,69,0.8)]" : "border border-line bg-white text-ink"}`}
-        >
-          {p.featured && <span className="eyebrow absolute right-8 top-8 rounded-full bg-sky px-3 py-1 text-night">Most popular</span>}
-          <h2 className="text-2xl font-semibold">{p.name}</h2>
-          <p className={`mt-2 ${p.featured ? "text-white/70" : "text-muted"}`}>{p.desc}</p>
-          <p className="mt-8 flex items-baseline gap-1">
-            <span className="font-display text-6xl font-semibold tracking-tight">{p.price === "Custom" ? "Custom" : `$${p.price}`}</span>
-            <span className={p.featured ? "text-white/60" : "text-muted"}>{p.period}</span>
-          </p>
-          <ul className="mt-8 flex-1 space-y-3">
-            {p.features.map((f) => (
-              <li key={f} className="flex gap-3">
-                <Check className={`mt-0.5 h-5 w-5 shrink-0 ${p.featured ? "text-sky" : "text-brand"}`} aria-hidden /> {f}
+    <div className="container-x">
+      <ol className="grid gap-6 lg:grid-cols-3">
+        {pricingSteps.map((s, i) => (
+          <Reveal as="li" key={s.title} delay={i * 0.08} className="rounded-2xl border border-line p-8">
+            <span className="font-mono text-sm text-royal">0{i + 1}</span>
+            <h2 className="mt-3 text-2xl font-semibold text-ink">{s.title}</h2>
+            <p className="mt-3 leading-7 text-muted">{s.text}</p>
+          </Reveal>
+        ))}
+      </ol>
+
+      <Reveal className="mt-24">
+        <SectionHeader eyebrow="What shapes your price" title="You pay for what your institution uses." lead="No fixed monthly tiers. Your package is built from these five things." />
+      </Reveal>
+      <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {pricingFactors.map((f) => (
+          <StaggerItem key={f.title} className="rounded-[1.5rem] bg-paper p-6 ring-1 ring-line">
+            <IconTile name={f.icon} />
+            <h3 className="mt-5 text-lg font-semibold text-ink">{f.title}</h3>
+            <p className="mt-2 text-[15px] leading-6 text-muted">{f.text}</p>
+          </StaggerItem>
+        ))}
+      </Stagger>
+
+      <Reveal className="mt-20 grid gap-10 rounded-3xl bg-navy p-8 text-white shadow-[0_40px_80px_-40px_rgba(4,14,69,0.8)] sm:p-12 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div>
+          <p className="eyebrow text-sky">Every package includes</p>
+          <ul className="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
+            {pricingIncludes.map((item) => (
+              <li key={item} className="flex gap-3 text-lg">
+                <Check className="mt-1 h-5 w-5 shrink-0 text-sky" aria-hidden /> {item}
               </li>
             ))}
           </ul>
-          <ButtonLink href={p.price === "Custom" ? "/contact" : site.demoUrl} variant={p.featured ? "sky" : "primary"} className="mt-10 w-full py-4">
-            {p.cta}
+        </div>
+        <div className="flex flex-col gap-3 lg:w-64">
+          <ButtonLink href={site.demoUrl} variant="sky" className="w-full py-4">
+            Get your custom quote
           </ButtonLink>
-        </StaggerItem>
-      ))}
-    </Stagger>
-    <p className="container-x mt-8 text-center text-muted">All plans include a 30-day free trial. No credit card required. Prices in USD, billed monthly.</p>
+          <ButtonLink href="/contact" variant="ghostDark" className="w-full py-4">
+            Talk to sales
+          </ButtonLink>
+        </div>
+      </Reveal>
+    </div>
   </section>
 );

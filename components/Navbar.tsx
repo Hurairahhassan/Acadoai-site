@@ -148,7 +148,7 @@ export const Navbar = () => {
                   </div>
                   <div className="rounded-xl bg-paper p-6">
                     <p className="eyebrow text-royal">Pricing</p>
-                    <p className="mt-3 font-display text-2xl leading-tight text-ink">Plans for every size of institution.</p>
+                    <p className="mt-3 font-display text-2xl leading-tight text-ink">Flexible packages built around your institution.</p>
                     <Link href="/pricing" onClick={() => setOpen(null)} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-royal">
                       See pricing <ArrowRight className="h-4 w-4" aria-hidden />
                     </Link>

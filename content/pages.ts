@@ -712,36 +712,93 @@ export const faqs = [
   { q: "Is there a mobile app?", a: "Yes. AcadoAI's mobile app has admin, teacher and student workspaces covering dashboards, attendance, finance, receipt verification, messaging, School Story and learning records." },
 ];
 
-export const plans = [
+// No fixed subscription: each institution gets a package sized to its users and operations.
+export const pricingSteps = [
+  { title: "We study your operations", text: "Number of students and staff, campuses, and the modules your institution actually uses." },
+  { title: "We size your system", text: "How much database space and file storage you need, and the right server configuration for your load." },
+  { title: "You get a custom package", text: "One clear price for your complete system, with no fixed plan tiers and nothing you don't use." },
+];
+
+export const pricingFactors = [
+  { icon: "users" as IconName, title: "Users", text: "Students, teachers, staff and parents who use the system." },
+  { icon: "check" as IconName, title: "Modules", text: "Only the operations you run, from fees and attendance to payroll." },
+  { icon: "database" as IconName, title: "Database & storage", text: "Dedicated database size and file storage matched to your records." },
+  { icon: "server" as IconName, title: "Server configuration", text: "A dedicated cloud server sized for your institution's usage." },
+  { icon: "sparkles" as IconName, title: "AI credits", text: "Buy extra AI credits whenever you need them, only for what you use." },
+];
+
+export const pricingIncludes = [
+  "Dedicated database and cloud server",
+  "2 months free trial",
+  "Free data migration by our team",
+  "Free staff training",
+  "Admin, teacher and student mobile apps",
+  "Role and module permissions",
+];
+
+// Onboarding phases shown on the pricing page. Keep timings in line with what the team actually delivers.
+export const rolloutPhases = [
   {
-    name: "Starter",
-    price: "299",
-    currency: "USD",
-    period: "/month",
-    desc: "For small institutions up to 500 students.",
-    features: ["Students, classes and timetables", "Attendance and ID cards", "Fee challans and receipts", "Tests and result cards", "Teacher and student AI tools (basic allowance)", "Email support"],
-    cta: "Book a demo",
+    when: "Week 1",
+    title: "Discovery & assessment",
+    text: "We meet your team to understand your students, staff, campuses, fee structure and the operations you want to run on AcadoAI.",
+    deliverables: ["Requirements summary", "Custom package proposal"],
   },
   {
-    name: "Growth",
-    price: "599",
-    currency: "USD",
-    period: "/month",
-    desc: "For institutions up to 2,000 students.",
-    features: ["Everything in Starter", "Fee automation and multi-month collection", "Ask Your Data and PDF reports", "NoteBookLM and 3D tutor", "Messaging and School Story", "Payroll and expenses", "Priority support"],
-    cta: "Book a demo",
-    featured: true,
+    when: "Week 1–2",
+    title: "System setup",
+    text: "We provision your dedicated database and cloud server, sized to your users, then configure classes, timetables, fee plans and staff roles.",
+    deliverables: ["Dedicated server live", "Institution configured", "Roles and permissions set"],
   },
   {
-    name: "Enterprise",
-    price: "Custom",
-    currency: "USD",
-    period: "",
-    desc: "For large institutions and multi-campus groups.",
-    features: ["Everything in Growth", "Custom AI usage allowance", "Guided onboarding and data import", "Role and permission setup support", "Dedicated account contact"],
-    cta: "Contact sales",
+    when: "Week 2–3",
+    title: "Data migration",
+    text: "Our team imports your students, staff, fee records and results from spreadsheets or your old system, free of cost, and checks every record with you.",
+    deliverables: ["Verified data import", "Migration report"],
+  },
+  {
+    when: "Week 3",
+    title: "Staff training",
+    text: "Hands-on sessions for admins, accountants and teachers on the web portal and mobile apps, at no extra cost.",
+    deliverables: ["Trained staff", "User guides", "Mobile apps set up"],
+  },
+  {
+    when: "Week 4",
+    title: "Go-live & free trial",
+    text: "Your institution goes live and your 2-month free trial starts, with our team on hand for questions and quick fixes.",
+    deliverables: ["Institution live", "2-month free trial", "Priority support"],
+  },
+  {
+    when: "Ongoing",
+    title: "Review & scale",
+    text: "We review usage with you and adjust storage, server capacity and AI credits as your institution grows.",
+    deliverables: ["Usage reviews", "Capacity upgrades", "AI credit top-ups"],
   },
 ];
+
+// Shown on the pricing page after the rollout plan. Only list support the team actually provides.
+export const readiness = {
+  checklist: [
+    "Student, staff and fee data verified with your team",
+    "Fee plans and challans tested on a real billing cycle",
+    "Roles and module permissions reviewed by your admin",
+    "Attendance windows and alerts configured",
+    "Mobile apps installed for admins and teachers",
+    "Parents and students ready to log in",
+  ],
+  training: [
+    { icon: "building" as IconName, role: "Admins & principals", text: "Dashboards, Ask Your Data, staff permissions and institution settings." },
+    { icon: "wallet" as IconName, role: "Accountants", text: "Fee plans, challans, partial payments, receipts, payroll and expenses." },
+    { icon: "book" as IconName, role: "Teachers", text: "Attendance, tests and results, assignments and AI teaching tools." },
+    { icon: "graduation" as IconName, role: "Students & parents", text: "Simple guides for the mobile app, results, fees and the AI tutor." },
+  ],
+  support: [
+    { icon: "message" as IconName, title: "Email support", text: "Send questions any time to our support team." },
+    { icon: "phone" as IconName, title: "Phone support", text: "Talk to our team directly when something needs quick help." },
+    { icon: "users" as IconName, title: "Training for new staff", text: "New teachers or accountants joining later can be trained too." },
+    { icon: "chart" as IconName, title: "Usage reviews", text: "Regular check-ins to adjust storage, server capacity and AI credits." },
+  ],
+};
 
 export const securityPoints = [
   { icon: "database" as IconName, title: "Your own database", text: "No shared databases. Your institution's data is stored in its own dedicated database, fully isolated from every other school." },

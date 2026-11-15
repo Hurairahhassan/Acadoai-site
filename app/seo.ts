@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { plans, site } from "../content/pages";
+import { site } from "../content/pages";
 
 /** Per-page metadata with canonical, Open Graph and Twitter kept consistent. */
 export function pageMeta({ title, description, path }: { title: string; description: string; path: string }): Metadata {
@@ -22,7 +22,4 @@ export const softwareLd = {
   applicationSubCategory: "School Management System",
   operatingSystem: "Web, iOS, Android",
   publisher: { "@id": `${site.url}/#organization` },
-  offers: plans
-    .filter((p) => p.price !== "Custom")
-    .map((p) => ({ "@type": "Offer", name: p.name, price: p.price, priceCurrency: p.currency, url: `${site.url}/pricing` })),
 };
