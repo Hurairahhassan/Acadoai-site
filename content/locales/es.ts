@@ -59,6 +59,15 @@ const es: Translation = {
       school: "Colegio",
       logo: "Logo de {name}",
     },
+    intro: {
+      eyebrow: "Conoce AcadoAI",
+      title: "Mira cómo AcadoAI gestiona tu centro",
+      lead: "Un recorrido breve por cuotas, asistencia, exámenes y herramientas de IA funcionando juntos en un solo lugar.",
+      label: "Vídeo de presentación de AcadoAI",
+      play: "Reproducir el vídeo de presentación",
+      fullscreen: "Ver en pantalla completa",
+      watch: "Descargar el vídeo de presentación de AcadoAI",
+    },
     modules: {
       eyebrow: "La plataforma",
       title: "Todo lo que tu centro necesita, en un solo lugar",

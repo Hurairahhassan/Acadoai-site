@@ -5,6 +5,7 @@ import { Contact } from "../../components/Contact";
 import { FAQ } from "../../components/FAQ";
 import { Footer } from "../../components/Footer";
 import { Hero } from "../../components/Hero";
+import { IntroVideo } from "../../components/IntroVideo";
 import { LogoWall } from "../../components/LogoWall";
 import { MobileApp } from "../../components/MobileApp";
 import { Modules } from "../../components/Modules";
@@ -30,6 +31,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <Hero />
         <LogoWall />
         <Stats />
+        <IntroVideo />
         <Modules />
         <Automation />
         <PersonaTabs />

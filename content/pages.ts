@@ -872,6 +872,15 @@ const ui = {
     school: "School",
     logo: "{name} logo",
   },
+  intro: {
+    eyebrow: "Meet AcadoAI",
+    title: "See how AcadoAI runs your institution",
+    lead: "A short tour of fees, attendance, exams and AI tools working together in one place.",
+    label: "AcadoAI introduction video",
+    play: "Play the introduction video",
+    fullscreen: "Watch in full screen",
+    watch: "Download the AcadoAI introduction video",
+  },
   modules: {
     eyebrow: "The platform",
     title: "Everything your institution runs on, in one place",

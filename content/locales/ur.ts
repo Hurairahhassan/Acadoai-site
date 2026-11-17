@@ -59,6 +59,15 @@ const ur: Translation = {
       school: "اسکول",
       logo: "{name} کا لوگو",
     },
+    intro: {
+      eyebrow: "AcadoAI سے ملیں",
+      title: "دیکھیں AcadoAI آپ کا ادارہ کیسے چلاتا ہے",
+      lead: "فیس، حاضری، امتحانات اور AI ٹولز ایک ہی جگہ پر کیسے مل کر کام کرتے ہیں، ایک مختصر جھلک۔",
+      label: "AcadoAI تعارفی ویڈیو",
+      play: "تعارفی ویڈیو چلائیں",
+      fullscreen: "فل اسکرین میں دیکھیں",
+      watch: "AcadoAI تعارفی ویڈیو ڈاؤن لوڈ کریں",
+    },
     modules: {
       eyebrow: "پلیٹ فارم",
       title: "آپ کے ادارے کا ہر کام، ایک ہی جگہ",
